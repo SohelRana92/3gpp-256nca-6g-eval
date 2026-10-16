@@ -1,0 +1,36 @@
+\begin{table}[p]
+\centering
+\caption{Energy on one Pi~5 core at 2.4~GHz, from the power-management chip. nJ/B: rise in power over idle times run time, per byte, for the core rail and for the sum of all rails. $\mu$J/pkt: core-rail energy per packet. Idle and $\Delta P$: core rail. Spread: (max $-$ min)/median of the three repetitions. Medians of three 10-second runs. Sources: \texttt{results/pi5/pi5\_energy.csv} and \texttt{pi5\_energy\_ref.csv}.}
+\label{tab:s-energy}
+\footnotesize
+\begin{tabular}{@{}l r r r r r r r r@{}}
+\toprule
+Algorithm & Bytes & nJ/B & nJ/B & $\mu$J/pkt & Idle & $\Delta P$ & Spread & Max \\
+ & & core & all rails & core & (W) & (W) & (\%) & $^\circ$C \\
+\midrule
+Snow 5G (NCA4), L2 & 40 & 7.03 & 7.04 & 0.281 & 1.71 & 1.23 & 1.9 & 57.6 \\
+ & 1500 & 0.98 & 0.93 & 1.469 & 1.73 & 1.24 & 1.3 & 56.0 \\
+ & 65536 & 0.84 & 0.87 & 54.919 & 1.75 & 1.40 & 3.3 & 57.1 \\
+\addlinespace[2pt]
+AES-256 (NCA5), L2 & 40 & 8.30 & 9.05 & 0.332 & 1.78 & 0.83 & 7.0 & 56.0 \\
+ & 1500 & 1.05 & 0.99 & 1.580 & 1.74 & 1.07 & 3.9 & 56.5 \\
+ & 65536 & 0.86 & 0.85 & 56.341 & 1.76 & 1.25 & 7.6 & 57.1 \\
+\addlinespace[2pt]
+ZUC-256 (NCA6), L2 & 40 & 25.14 & 25.55 & 1.006 & 1.73 & 0.89 & 8.7 & 56.0 \\
+ & 1500 & 3.70 & 3.56 & 5.544 & 1.72 & 0.89 & 15.1 & 57.6 \\
+ & 65536 & 3.32 & 3.31 & 217.330 & 1.74 & 0.97 & 4.4 & 56.5 \\
+\addlinespace[2pt]
+AES-256-GCM, OpenSSL & 40 & 24.62 & 24.04 & 0.985 & 1.74 & 1.02 & 3.1 & 57.1 \\
+ & 1500 & 1.31 & 1.26 & 1.971 & 1.76 & 1.11 & 6.2 & 57.6 \\
+ & 65536 & 0.74 & 0.79 & 48.241 & 1.76 & 1.36 & 5.5 & 57.6 \\
+\addlinespace[2pt]
+ChaCha20-Poly1305, OpenSSL & 40 & 32.08 & 31.41 & 1.283 & 1.66 & 0.92 & 2.0 & 56.5 \\
+ & 1500 & 2.83 & 2.78 & 4.242 & 1.69 & 1.07 & 3.5 & 58.7 \\
+ & 65536 & 1.89 & 1.93 & 123.640 & 1.67 & 1.31 & 4.0 & 57.1 \\
+\addlinespace[2pt]
+AEGIS-256, libaegis & 40 & 4.43 & 4.27 & 0.177 & 1.67 & 1.31 & 1.1 & 58.7 \\
+ & 1500 & 0.55 & 0.56 & 0.830 & 1.67 & 1.32 & 1.0 & 57.6 \\
+ & 65536 & 0.48 & 0.52 & 31.615 & 1.68 & 1.46 & 3.5 & 58.2 \\
+\bottomrule
+\end{tabular}
+\end{table}

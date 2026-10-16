@@ -1,0 +1,117 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu Oct 15 18:29:23 2026
+# Process ID         : 250787
+# Current directory  : /media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/vivado
+# Command line       : vivado -mode batch -nojournal -log logs/nca4_A.log -source build.tcl -tclargs nca4_A nca4_top ARCH=1 D=8
+# Log file           : /media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/vivado/logs/nca4_A.log
+# Journal file       : 
+# Running On         : sohel-HP-ProBook-440-G7
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 25.10
+# Processor Detail   : Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz
+# CPU Frequency      : 2700.010 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 7627 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 11922 MB
+# Available Virtual  : 7101 MB
+#-----------------------------------------------------------
+source build.tcl
+# set tag   [lindex $argv 0]
+# set top   [lindex $argv 1]
+# set gens  [lrange $argv 2 end]
+# set part  xc7s25csga324-1
+# set here  [file dirname [file normalize [info script]]]
+# set rtl   [file normalize $here/../rtl]
+# set out   [file normalize $here/reports/$tag]
+# file mkdir $out
+# set_param general.maxThreads 8
+# proc run_pass {period passdir} {
+#     global top gens part rtl out
+#     file mkdir $passdir
+#     set xdc $passdir/clk.xdc
+#     set f [open $xdc w]; puts $f "create_clock -period $period -name clk \[get_ports clk\]"; close $f
+#     close_project -quiet
+#     create_project -in_memory -part $part
+#     read_vhdl -vhdl2008 [list $rtl/r4_pkg.vhd $rtl/polyval_mac.vhd $rtl/aead1_ctrl.vhd \
+#         $rtl/ksg_aes.vhd $rtl/ksg_snow.vhd $rtl/ksg_zuc.vhd $rtl/nca5_top.vhd $rtl/nca4_top.vhd $rtl/nca6_top.vhd]
+#     read_xdc -mode out_of_context $xdc
+#     set g {}
+#     foreach x $gens { lappend g -generic $x }
+#     synth_design -top $top -part $part -mode out_of_context {*}$g
+#     opt_design
+#     place_design
+#     phys_opt_design
+#     route_design
+#     set p [get_timing_paths -delay_type max -max_paths 1]
+#     set wns [get_property SLACK $p]
+#     if {$wns eq ""} { set wns 0 }
+#     return $wns
+# }
+Command: synth_design -top nca4_top -part xc7s25csga324-1 -mode out_of_context -generic ARCH=1 -generic D=8
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7s25'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7s25'
+INFO: [Device 21-403] Loading part xc7s25csga324-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 256423
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 2173.859 ; gain = 482.188 ; free physical = 575 ; free virtual = 5614
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'nca4_top' [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/rtl/nca4_top.vhd:29]
+	Parameter ARCH bound to: 1 - type: integer 
+	Parameter D bound to: 8 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'ksg_snow' [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/rtl/ksg_snow.vhd:28]
+	Parameter ARCH bound to: 1 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'ksg_snow' (0#1) [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/rtl/ksg_snow.vhd:28]
+INFO: [Synth 8-638] synthesizing module 'aead1_ctrl' [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/rtl/aead1_ctrl.vhd:41]
+	Parameter D bound to: 8 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'polyval_mac' [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/rtl/polyval_mac.vhd:31]
+	Parameter D bound to: 8 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'polyval_mac' (0#1) [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/rtl/polyval_mac.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'aead1_ctrl' (0#1) [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/rtl/aead1_ctrl.vhd:41]
+INFO: [Synth 8-256] done synthesizing module 'nca4_top' (0#1) [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/rtl/nca4_top.vhd:29]
+WARNING: [Synth 8-7129] Port mac_en in module ksg_snow is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2288.828 ; gain = 597.156 ; free physical = 457 ; free virtual = 5483
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2297.734 ; gain = 606.062 ; free physical = 457 ; free virtual = 5483
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2297.734 ; gain = 606.062 ; free physical = 457 ; free virtual = 5483
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.06 . Memory (MB): peak = 2297.734 ; gain = 0.000 ; free physical = 457 ; free virtual = 5481
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/vivado/reports/nca4_A/pass1/clk.xdc]
+Finished Parsing XDC File [/media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/vivado/reports/nca4_A/pass1/clk.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2397.504 ; gain = 0.000 ; free physical = 447 ; free virtual = 5471
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.09 . Memory (MB): peak = 2397.539 ; gain = 0.000 ; free physical = 447 ; free virtual = 5471
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+1
+INFO: [Common 17-83] Releasing license: Synthesis
+18 Infos, 1 Warnings, 0 Critical Warnings and 1 Errors encountered.
+synth_design failed
+synth_design: Time (s): cpu = 00:00:25 ; elapsed = 00:00:22 . Memory (MB): peak = 2405.508 ; gain = 784.164 ; free physical = 606 ; free virtual = 5634
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1685.641; main = 1496.091; forked = 287.731
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3268.512; main = 2405.512; forked = 996.680
+INFO: [Common 17-344] 'source' was cancelled
+INFO: [Common 17-206] Exiting Vivado at Thu Oct 15 18:29:54 2026...

@@ -1,0 +1,21 @@
+== date
+2026-10-15T20:34:41+01:00
+== cpu
+CPU(s):                                  4
+Model name:                              Cortex-A76
+Thread(s) per core:                      1
+CPU(s) scaling MHz:                      100%
+CPU max MHz:                             2400.0000
+CPU min MHz:                             1500.0000
+== os
+Linux raspberrypi 6.18.50+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.18.50-1+rpt1 (2026-09-11) aarch64 GNU/Linux
+== gcc
+gcc (Debian 14.2.0-19) 14.2.0
+== openssl
+OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)
+== cpufreq cpu3
+scaling_governor=performance
+scaling_min_freq=2400000
+scaling_max_freq=2400000
+boost=0
+perf_event_paranoid=1

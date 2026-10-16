@@ -1,0 +1,29 @@
+\begin{table}[p]
+\centering
+\caption{OpenSSL on Zen~4 with the usual call (\texttt{EVP\_aes\_256\_gcm()} per packet) and with a cipher object fetched once per thread (\texttt{EVP\_CIPHER\_fetch}); the key is set up for every packet in both cases: total Gbit/s over all threads, median of three 2-second runs. Threads go to separate physical cores first, and 16 uses both hardware threads of all eight cores. Eff.\ is the throughput on 8 cores divided by 8 times the single-core value. Source: \texttt{results/zen4/zen4\_mc\_ossl.csv}.}
+\label{tab:s-mc-fetch}
+\footnotesize
+\begin{tabular}{@{}l r r r r r r r@{}}
+\toprule
+Algorithm & Bytes & \multicolumn{5}{c}{Threads} & Eff. \\
+\cmidrule(lr){3-7}
+ & & 1 & 2 & 4 & 8 & 16 & (\%) \\
+\midrule
+OpenSSL AES-256-GCM & 40 & 0.58 & 0.93 & 1.08 & 0.82 & 1.06 & 18 \\
+ & 1500 & 15.8 & 27.6 & 37.9 & 31.5 & 39.6 & 25 \\
+ & 65536 & 79.2 & 157.2 & 308.6 & 604.7 & 659.8 & 95 \\
+\addlinespace[2pt]
+AES-256-GCM, fetched & 40 & 0.91 & 1.66 & 2.56 & 3.09 & 3.66 & 42 \\
+ & 1500 & 22.5 & 43.0 & 74.2 & 102.7 & 130.5 & 57 \\
+ & 65536 & 82.6 & 164.9 & 325.9 & 642.2 & 685.5 & 97 \\
+\addlinespace[2pt]
+OpenSSL ChaCha20-Poly1305 & 40 & 0.41 & 0.66 & 0.96 & 0.85 & 1.04 & 26 \\
+ & 1500 & 9.04 & 16.1 & 27.8 & 33.6 & 39.5 & 46 \\
+ & 65536 & 29.6 & 59.0 & 117.5 & 233.3 & 280.8 & 99 \\
+\addlinespace[2pt]
+ChaCha20-Poly1305, fetched & 40 & 0.59 & 1.06 & 1.86 & 2.60 & 3.39 & 55 \\
+ & 1500 & 11.1 & 21.2 & 39.6 & 71.4 & 96.5 & 81 \\
+ & 65536 & 30.1 & 60.1 & 120.1 & 238.8 & 283.3 & 99 \\
+\bottomrule
+\end{tabular}
+\end{table}

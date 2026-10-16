@@ -1,0 +1,1 @@
+nca6_A rebuilt 2026-10-15 18:57 with ZUC v2 (CSA tree); nca6_T identical to hw_run1. Both meet 50 MHz, 127/127 match.

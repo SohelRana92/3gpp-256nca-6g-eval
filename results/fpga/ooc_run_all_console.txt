@@ -1,0 +1,6 @@
+R4 RESULT nca5_A: LUT 2981 FF 2200 slices 1015 BRAM 0.5 DSP 0 Fmax 158.8 MHz, dyn power 0.072 W at 100 MHz
+R4 RESULT nca5_T: LUT 5443 FF 2205 slices 1694 BRAM 0.5 DSP 0 Fmax 113.3 MHz, dyn power 0.206 W at 100 MHz
+R4 RESULT nca4_A: LUT 3293 FF 2716 slices 1101 BRAM 0 DSP 0 Fmax 150.7 MHz, dyn power 0.062 W at 100 MHz
+R4 RESULT nca4_T: LUT 4913 FF 2717 slices 1429 BRAM 4 DSP 0 Fmax 154.8 MHz, dyn power 0.127 W at 100 MHz
+R4 RESULT nca6_A: LUT 2394 FF 1871 slices 791 BRAM 0 DSP 0 Fmax 122.6 MHz, dyn power 0.061 W at 100 MHz
+R4 RESULT nca6_T: LUT 3810 FF 1870 slices 1085 BRAM 0 DSP 0 Fmax 126.5 MHz, dyn power 0.085 W at 100 MHz

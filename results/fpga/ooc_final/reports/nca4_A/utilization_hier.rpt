@@ -1,0 +1,33 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
+| Date         : Thu Oct 15 19:08:23 2026
+| Host         : sohel-HP-ProBook-440-G7 running 64-bit Ubuntu 25.10
+| Command      : report_utilization -hierarchical -file /media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/vivado/reports/nca4_A/utilization_hier.rpt
+| Design       : nca4_top
+| Device       : xc7s25csga324-1
+| Speed File   : -1
+| Design State : Routed
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-----------+-------------+------------+------------+---------+------+------+--------+--------+------------+
+|  Instance |    Module   | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++-----------+-------------+------------+------------+---------+------+------+--------+--------+------------+
+| nca4_top  |       (top) |       3293 |       3293 |       0 |    0 | 2716 |      0 |      0 |          0 |
+|   ctl     |  aead1_ctrl |       1408 |       1408 |       0 |    0 | 1044 |      0 |      0 |          0 |
+|     (ctl) |  aead1_ctrl |        276 |        276 |       0 |    0 |  139 |      0 |      0 |          0 |
+|     mac   | polyval_mac |       1137 |       1137 |       0 |    0 |  905 |      0 |      0 |          0 |
+|   ksg     |    ksg_snow |       1885 |       1885 |       0 |    0 | 1672 |      0 |      0 |          0 |
++-----------+-------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

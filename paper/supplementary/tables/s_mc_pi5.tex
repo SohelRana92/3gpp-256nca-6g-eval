@@ -1,0 +1,37 @@
+\begin{table}[p]
+\centering
+\caption{Multi-core throughput on the Pi~5 (L2 and reference schemes): total Gbit/s over all threads, median of three 2-second runs. Threads go to separate physical cores first. Eff.\ is the throughput on 4 cores divided by 4 times the single-core value. Source: \texttt{results/pi5/pi5\_mc.csv}.}
+\label{tab:s-mc-pi5}
+\footnotesize
+\begin{tabular}{@{}l r r r r r@{}}
+\toprule
+Algorithm & Bytes & \multicolumn{3}{c}{Threads} & Eff. \\
+\cmidrule(lr){3-5}
+ & & 1 & 2 & 4 & (\%) \\
+\midrule
+256-NCA5 (AES-256) & 40 & 0.82 & 1.58 & 2.88 & 88 \\
+ & 1500 & 8.13 & 16.1 & 29.5 & 91 \\
+ & 65536 & 11.7 & 23.3 & 43.8 & 93 \\
+\addlinespace[2pt]
+256-NCA4 (Snow 5G) & 40 & 1.41 & 2.70 & 5.08 & 90 \\
+ & 1500 & 10.2 & 20.1 & 36.7 & 90 \\
+ & 65536 & 13.4 & 26.8 & 48.4 & 90 \\
+\addlinespace[2pt]
+256-NCA6 (ZUC-256) & 40 & 0.28 & 0.56 & 1.02 & 90 \\
+ & 1500 & 1.93 & 3.84 & 7.06 & 92 \\
+ & 65536 & 2.34 & 4.65 & 8.60 & 92 \\
+\addlinespace[2pt]
+OpenSSL AES-256-GCM & 40 & 0.31 & 0.54 & 0.94 & 76 \\
+ & 1500 & 6.53 & 12.2 & 22.2 & 85 \\
+ & 65536 & 14.8 & 29.5 & 54.5 & 92 \\
+\addlinespace[2pt]
+OpenSSL ChaCha20-Poly1305 & 40 & 0.23 & 0.42 & 0.73 & 80 \\
+ & 1500 & 3.07 & 5.93 & 10.8 & 88 \\
+ & 65536 & 5.55 & 11.0 & 20.1 & 91 \\
+\addlinespace[2pt]
+libaegis AEGIS-256 & 40 & 2.42 & 4.48 & 8.14 & 84 \\
+ & 1500 & 19.2 & 37.5 & 69.0 & 90 \\
+ & 65536 & 23.4 & 46.5 & 84.3 & 90 \\
+\bottomrule
+\end{tabular}
+\end{table}

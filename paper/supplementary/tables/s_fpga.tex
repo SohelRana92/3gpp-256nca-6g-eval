@@ -1,0 +1,44 @@
+\begin{table*}[p]
+\centering
+\caption{Hardware tier, all out-of-context builds on the XC7S25-1 (Vivado 2025.2, second pass). $T$: clock period of the second pass; WNS: worst negative slack; $f_{\max} = 1/(T - \mathrm{WNS})$. Power: Vivado estimates with default switching activity; the static part is 0.058~W in every build. Source: \texttt{results/fpga/ooc\_final/reports/summary.csv} (last entry per build).}
+\label{tab:s-fpga}
+\footnotesize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l r r r r r r r r r r@{}}
+\toprule
+Design & LUT & FF & Slice & BRAM & $T$ (ns) & WNS (ns) & $f_{\max}$ (MHz) & Dyn.\ W & Total W & Dyn.\ W \\
+ & & & & & & & & at $f_{\max}$ & at $f_{\max}$ & at 100 MHz \\
+\midrule
+AES-256 generator, 1 round/clk & 1728 & 1162 & 602 & 0 & 5.20 & 0.068 & 194.9 & 0.107 & 0.165 & 0.056 \\
+AES-256 generator, 2 rounds/clk & 2674 & 1161 & 928 & 0.5 & 8.80 & -0.142 & 111.8 & 0.215 & 0.273 & 0.189 \\
+Snow 5G generator, 1 AES round/clk & 2084 & 1674 & 653 & 0 & 6.10 & -0.433 & 153.1 & 0.089 & 0.147 & 0.054 \\
+Snow 5G generator, 2 AES rounds/clk & 2489 & 1801 & 789 & 0 & 5.15 & -0.184 & 187.5 & 0.138 & 0.196 & 0.071 \\
+ZUC-256 generator & 972 & 826 & 355 & 0 & 8.05 & -0.268 & 120.2 & 0.047 & 0.105 & 0.038 \\
+\midrule
+256-NCA5 engine A & 2981 & 2200 & 1015 & 0.5 & 6.05 & -0.247 & 158.8 & 0.118 & 0.176 & 0.072 \\
+256-NCA5 engine T & 5443 & 2205 & 1694 & 0.5 & 8.70 & -0.125 & 113.3 & 0.237 & 0.295 & 0.206 \\
+256-NCA4 engine A & 3293 & 2716 & 1101 & 0 & 6.50 & -0.135 & 150.7 & 0.096 & 0.154 & 0.062 \\
+256-NCA4 engine T & 4913 & 2717 & 1429 & 4 & 6.20 & -0.259 & 154.8 & 0.205 & 0.263 & 0.127 \\
+256-NCA6 engine A & 2394 & 1871 & 791 & 0 & 7.70 & -0.458 & 122.6 & 0.080 & 0.138 & 0.061 \\
+256-NCA6 engine T & 3810 & 1870 & 1085 & 0 & 7.80 & -0.108 & 126.5 & 0.110 & 0.168 & 0.085 \\
+\bottomrule
+\end{tabular}}
+
+\vspace{6pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l r r r r r r r r r@{}}
+\toprule
+Engine & \multicolumn{5}{c}{256-NCA cycles on the board} & NEA & NIA & \multicolumn{2}{c}{Latency at $f_{\max}$ (ns)} \\
+\cmidrule(lr){2-6}\cmidrule(l){9-10}
+ & 0 B & 40 B & 576 B & 1500 B & 16 KiB & 16 KiB & 1500 B & 40 B & 1500 B \\
+\midrule
+256-NCA5 engine A & 65 & 124 & 652 & 1580 & 16460 & 14340 & 1567 & 781 & 9950 \\
+256-NCA5 engine T & 32 & 54 & 285 & 691 & 7201 & 7172 & 406 & 477 & 6099 \\
+256-NCA4 engine A & 61 & 108 & 636 & 1564 & 16444 & 2084 & 1563 & 717 & 10378 \\
+256-NCA4 engine T & 30 & 41 & 173 & 405 & 4125 & 1044 & 404 & 265 & 2616 \\
+256-NCA6 engine A & 132 & 181 & 709 & 1637 & 16517 & 4197 & 1634 & 1476 & 13352 \\
+256-NCA6 engine T & 120 & 133 & 265 & 497 & 4217 & 4197 & 494 & 1051 & 3929 \\
+\bottomrule
+\end{tabular}}
+\\[2pt]{\footnotesize Board cycle counts from \texttt{results/fpga/hw\_final/<engine>/hwtest.txt} (127 of 127 packets match, 50~MHz).}
+\end{table*}

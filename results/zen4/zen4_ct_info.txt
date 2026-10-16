@@ -1,0 +1,21 @@
+== date
+2026-10-16T01:46:53+06:00
+== cpu
+CPU(s):                                  16
+Model name:                              AMD Ryzen 7 7700 8-Core Processor
+Thread(s) per core:                      2
+CPU(s) scaling MHz:                      99%
+CPU max MHz:                             3801.0000
+CPU min MHz:                             422.3340
+== os
+Linux iict-MS-7E28 7.0.0-38-generic #38~24.04.4-Ubuntu SMP PREEMPT_DYNAMIC Mon Sep 14 16:37:11 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+== gcc
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+== openssl
+OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)
+== cpufreq cpu2
+scaling_governor=performance
+scaling_min_freq=3800000
+scaling_max_freq=3800000
+boost=0
+perf_event_paranoid=1

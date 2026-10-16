@@ -1,0 +1,42 @@
+# build products
+*.o
+*.a
+*.so
+__pycache__/
+code/esp32/build/
+code/esp32/sdkconfig
+code/esp32/sdkconfig.old
+code/fpga/work_ghdl/
+code/fpga/vivado/reports/
+code/fpga/vivado/logs/
+code/fpga/vivado/hw/
+code/fpga/tools/gen_polyval
+code/fpga/tools/gen_vectors
+.Xil/
+*.jou
+code/bench/bench
+code/bench/mc
+code/bench/ct
+code/bench/results/
+code/*/kat_cli
+code/common/test_common
+code/l2x86/test_l2
+code/l3x86/test_l3
+code/l2arm/test_l2
+code/l2port/test_l2
+code/l2port/test_l2_32
+code/*/crosscheck_annex
+code/*/crosscheck_annexb
+# 3GPP annex reference code extracted from your own copy of the specifications:
+# copyright 3GPP, never commit
+code/*/annex_ref.cpp
+code/*/annexb_35243.cpp
+# LaTeX
+*.aux
+*.log
+# keep the raw measurement logs
+!results/**/*.log
+*.fls
+*.fdb_latexmk
+*.out
+*.synctex.gz
