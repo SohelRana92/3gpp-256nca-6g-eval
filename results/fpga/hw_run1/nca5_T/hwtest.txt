@@ -1,0 +1,8 @@
+  NCA      0 bytes:      32 cycles
+  NCA     40 bytes:      54 cycles
+  NCA    576 bytes:     285 cycles
+  NCA   1500 bytes:     691 cycles
+  NCA  16384 bytes:    7201 cycles
+  NEA  16384 bytes:    7172 cycles
+  NIA   1500 bytes:     406 cycles
+127 packets, 0 mismatches  -> ALL MATCH ON THE FPGA

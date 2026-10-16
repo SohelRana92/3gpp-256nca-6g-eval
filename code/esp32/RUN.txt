@@ -1,0 +1,36 @@
+R4 - ESP32 device tier: how to run (Windows, ESP-IDF v5.4.4, board on COM3)
+============================================================================
+
+1. Unzip to a short path WITHOUT spaces, for example  C:\r4
+   (ESP-IDF does not like spaces in project paths.)
+
+2. Open the "ESP-IDF 5.4 PowerShell" (or CMD) from the Start menu. Then:
+
+     cd C:\r4\code\esp32          (the folder that holds CMakeLists.txt)
+     idf.py set-target esp32
+     idf.py build
+     idf.py -p COM3 flash
+
+   The first build takes a few minutes.
+
+3. Capture the results to files (about 2-3 minutes):
+
+     python get_results.py COM3
+
+   It resets the board and prints everything. First the self-tests:
+       # ALL ESP32 SELF-TESTS PASS
+   then CSV lines, and finally  R4-DONE.
+   If you see R4-STOP, a self-test failed; the log names the failing check.
+
+   (Alternative: idf.py -p COM3 monitor , copy all text, Ctrl+] to leave.)
+
+4. Output:
+     results\esp32_run3.csv
+     results\esp32_run3_log.txt
+   The second argument of get_results.py sets the run name (run3 above).
+
+Notes
+- Keep the board on USB power only, with nothing else connected to its pins.
+- If flashing fails with "Failed to connect": hold BOOT, press EN/RST once,
+  release BOOT, and run the flash command again.
+- If get_results.py says the port is busy, close any open monitor first.

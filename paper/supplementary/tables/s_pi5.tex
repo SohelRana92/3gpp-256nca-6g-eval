@@ -1,0 +1,39 @@
+\begin{table}[p]
+\centering
+\caption{Edge tier (Raspberry Pi~5, one Cortex-A76 core at 2.4~GHz): all three modes at L1 and L2. Sources: \texttt{results/pi5/pi5\_final\_all\_levels.csv}; ChaCha20-Poly1305 and AEGIS-256 from \texttt{pi5\_base\_ref.csv}.}
+\label{tab:s-pi5}
+\footnotesize
+\begin{tabular}{@{}l l l r r r r r@{}}
+\toprule
+Set & Level & Algorithm & \multicolumn{3}{c}{Cycles per packet} & \multicolumn{2}{c}{64 KiB} \\
+\cmidrule(lr){4-6}\cmidrule(l){7-8}
+ & & & Setup & 40 B & 1500 B & c/B & Gbit/s \\
+\midrule
+AES-256 & L1 & 256-NEA5 & 1{,}593 & 6{,}822 & 165{,}243 & 108.7 & 0.2 \\
+ & L1 & 256-NIA5 & 8{,}500 & 13{,}831 & 174{,}866 & 110.4 & 0.2 \\
+ & L1 & 256-NCA5 & 8{,}506 & 19{,}059 & 337{,}912 & 219.3 & 0.1 \\
+ & L2 & 256-NEA5 & 598 & 706 & 2{,}296 & 1.114 & 17.2 \\
+ & L2 & 256-NIA5 & 719 & 852 & 1{,}847 & 0.528 & 36.3 \\
+ & L2 & 256-NCA5 & 721 & 955 & 3{,}538 & 1.637 & 11.7 \\
+\midrule
+Snow 5G & L1 & 256-NEA4 & 9{,}050 & 10{,}806 & 63{,}660 & 36.6 & 0.5 \\
+ & L1 & 256-NIA4 & 12{,}375 & 17{,}675 & 178{,}302 & 110.5 & 0.2 \\
+ & L1 & 256-NCA4 & 12{,}452 & 19{,}466 & 232{,}621 & 146.4 & 0.1 \\
+ & L2 & 256-NEA4 & 250 & 328 & 1{,}613 & 0.892 & 21.5 \\
+ & L2 & 256-NIA4 & 337 & 470 & 1{,}462 & 0.522 & 36.8 \\
+ & L2 & 256-NCA4 & 342 & 543 & 2{,}828 & 1.418 & 13.5 \\
+\midrule
+ZUC-256 & L1 & 256-NEA6 & 3{,}216 & 4{,}064 & 29{,}342 & 17.5 & 1.1 \\
+ & L1 & 256-NIA6 & 5{,}734 & 11{,}075 & 171{,}442 & 110.4 & 0.2 \\
+ & L1 & 256-NCA6 & 5{,}757 & 11{,}908 & 197{,}849 & 127.8 & 0.2 \\
+ & L2 & 256-NEA6 & 1{,}518 & 2{,}040 & 13{,}196 & 7.614 & 2.5 \\
+ & L2 & 256-NIA6 & 2{,}043 & 2{,}172 & 3{,}179 & 0.548 & 35.0 \\
+ & L2 & 256-NCA6 & 2{,}045 & 2{,}697 & 14{,}888 & 8.173 & 2.3 \\
+\midrule
+\multicolumn{3}{@{}l}{OpenSSL AES-256-CTR} & 1{,}868 & 1{,}997 & 3{,}468 & 1.020 & 18.8 \\
+\multicolumn{3}{@{}l}{OpenSSL AES-256-GCM} & 2{,}147 & 2{,}314 & 4{,}268 & 1.286 & 14.9 \\
+\multicolumn{3}{@{}l}{OpenSSL ChaCha20-Poly1305} & 2{,}746 & 3{,}337 & 9{,}327 & 3.445 & 5.6 \\
+\multicolumn{3}{@{}l}{libaegis AEGIS-256} & 265 & 324 & 1{,}496 & 0.787 & 24.4 \\
+\bottomrule
+\end{tabular}
+\end{table}

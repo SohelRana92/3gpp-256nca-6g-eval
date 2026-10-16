@@ -1,0 +1,6 @@
+# R4 timing-leakage test (dudect method), timer=rdtsc, 300 s or 100000000 measurements per test, cpu=2
+platform,level,alg,bytes,test,measurements,t_raw,t_max,crop_index,median_class0,median_class1,verdict
+zen4,L3,256-NCA5,1024,key,100000000,0.12,2.51,40,988.2,988.3,pass
+zen4,L3,256-NCA5,1024,data,100000000,1.01,9.69,50,988.7,988.7,possible
+zen4,L3,256-NCA4,1024,key,100000000,0.03,9.11,40,1216.5,1216.5,possible
+zen4,L3,256-NCA4,1024,data,100000000,-1.05,13.05,58,1216.0,1216.0,LEAK

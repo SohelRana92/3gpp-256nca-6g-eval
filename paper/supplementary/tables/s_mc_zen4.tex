@@ -1,0 +1,37 @@
+\begin{table}[p]
+\centering
+\caption{Multi-core throughput on Zen~4 (L3 and reference schemes): total Gbit/s over all threads, median of three 2-second runs. Threads go to separate physical cores first, and 16 uses both hardware threads of all eight cores. Eff.\ is the throughput on 8 cores divided by 8 times the single-core value. Source: \texttt{results/zen4/zen4\_mc.csv}.}
+\label{tab:s-mc-zen4}
+\footnotesize
+\begin{tabular}{@{}l r r r r r r r@{}}
+\toprule
+Algorithm & Bytes & \multicolumn{5}{c}{Threads} & Eff. \\
+\cmidrule(lr){3-7}
+ & & 1 & 2 & 4 & 8 & 16 & (\%) \\
+\midrule
+256-NCA5 (AES-256) & 40 & 3.11 & 6.14 & 10.5 & 22.4 & 31.4 & 90 \\
+ & 1500 & 34.5 & 68.6 & 132.3 & 267.9 & 325.0 & 97 \\
+ & 65536 & 64.9 & 127.7 & 251.1 & 505.7 & 544.7 & 97 \\
+\addlinespace[2pt]
+256-NCA4 (Snow 5G) & 40 & 3.14 & 5.85 & 9.52 & 19.9 & 27.6 & 79 \\
+ & 1500 & 28.5 & 56.5 & 108.8 & 220.0 & 257.9 & 96 \\
+ & 65536 & 44.0 & 87.3 & 175.1 & 347.1 & 377.2 & 99 \\
+\addlinespace[2pt]
+256-NCA6 (ZUC-256) & 40 & 0.42 & 0.84 & 1.67 & 3.33 & 3.68 & 99 \\
+ & 1500 & 3.07 & 6.12 & 12.2 & 24.2 & 27.1 & 98 \\
+ & 65536 & 3.78 & 7.54 & 15.1 & 29.9 & 33.2 & 99 \\
+\addlinespace[2pt]
+OpenSSL AES-256-GCM & 40 & 0.58 & 0.87 & 1.17 & 0.92 & 1.09 & 20 \\
+ & 1500 & 15.9 & 26.2 & 39.6 & 35.3 & 40.9 & 28 \\
+ & 65536 & 79.3 & 154.0 & 307.6 & 605.7 & 657.9 & 96 \\
+\addlinespace[2pt]
+OpenSSL ChaCha20-Poly1305 & 40 & 0.41 & 0.64 & 1.00 & 0.96 & 1.08 & 29 \\
+ & 1500 & 9.06 & 15.8 & 28.1 & 37.8 & 41.7 & 52 \\
+ & 65536 & 29.6 & 58.8 & 117.1 & 233.1 & 280.6 & 98 \\
+\addlinespace[2pt]
+libaegis AEGIS-256 & 40 & 5.72 & 10.4 & 20.7 & 42.1 & 60.1 & 92 \\
+ & 1500 & 63.7 & 121.9 & 241.9 & 487.1 & 694.7 & 96 \\
+ & 65536 & 87.7 & 174.9 & 348.0 & 697.1 & 951.4 & 99 \\
+\bottomrule
+\end{tabular}
+\end{table}

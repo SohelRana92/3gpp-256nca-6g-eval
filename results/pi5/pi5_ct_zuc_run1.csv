@@ -1,0 +1,4 @@
+# R4 timing-leakage test (dudect method), timer=perf-user-cycles, 120 s or 20000000 measurements per test, cpu=3
+platform,level,alg,bytes,test,measurements,t_raw,t_max,crop_index,median_class0,median_class1,verdict
+pi5,L2,256-NCA6,64,key,20000000,4.61,26.37,57,3036.6,3036.3,LEAK
+pi5,L2,256-NCA6,64,data,20000000,-0.94,1.82,3,3034.3,3034.3,pass

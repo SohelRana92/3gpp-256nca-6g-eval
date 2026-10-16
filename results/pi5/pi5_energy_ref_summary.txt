@@ -1,0 +1,7 @@
+level alg bytes  median nJ/B (core)  median nJ/B (all rails)  median dP core (W)
+base OpenSSL-ChaCha20-Poly1305 40  32.0803  31.4108  0.9179
+base OpenSSL-ChaCha20-Poly1305 1500  2.8283  2.7772  1.0675
+base OpenSSL-ChaCha20-Poly1305 65536  1.8866  1.9296  1.3071
+base libaegis-AEGIS-256 40  4.4321  4.2680  1.3092
+base libaegis-AEGIS-256 1500  0.5530  0.5571  1.3198
+base libaegis-AEGIS-256 65536  0.4824  0.5187  1.4587

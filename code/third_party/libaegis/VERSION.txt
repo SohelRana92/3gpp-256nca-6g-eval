@@ -1,0 +1,3 @@
+libaegis 0.9.1 (tag 0.9.1, https://github.com/aegis-aead/libaegis), MIT licence (see LICENSE).
+Only the C sources of the AEGIS algorithms are copied here, unchanged.
+R4 uses AEGIS-256 (aegis256_encrypt_detached, 16-byte tag) as a reference scheme.

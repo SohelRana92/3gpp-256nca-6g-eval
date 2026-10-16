@@ -1,0 +1,183 @@
+rbd@raspberrypi:~/Desktop/Sohel/all_Tier $ cd r4/code && make clean && make verify     # must end: ALL R4 CORRECTNESS CHECKS PASSED
+cd bench
+sudo ./clock_lock.sh 2400MHz
+./run_linux.sh pi5 3 L2,base                # about 8 minutes
+sudo ./clock_restore.sh
+make -C common clean
+make[1]: Entering directory '<repo>/code/common'
+rm -f test_common
+make[1]: Leaving directory '<repo>/code/common'
+make -C aes256set clean
+make[1]: Entering directory '<repo>/code/aes256set'
+rm -f *.o libnxa5.a crosscheck_annexb annexb_35243.cpp kat_cli
+make[1]: Leaving directory '<repo>/code/aes256set'
+make -C snow5gset clean
+make[1]: Entering directory '<repo>/code/snow5gset'
+rm -f *.o libnxa4.a kat_cli crosscheck_annex annex_ref.cpp
+make[1]: Leaving directory '<repo>/code/snow5gset'
+make -C zuc256set clean
+make[1]: Entering directory '<repo>/code/zuc256set'
+rm -f *.o libnxa6.a kat_cli crosscheck_annex annex_ref.cpp
+make[1]: Leaving directory '<repo>/code/zuc256set'
+make -C l2x86 clean
+make[1]: Entering directory '<repo>/code/l2x86'
+rm -f *.o libnxa_l2.a test_l2
+make[1]: Leaving directory '<repo>/code/l2x86'
+make -C l3x86 clean
+make[1]: Entering directory '<repo>/code/l3x86'
+rm -f *.o libnxa_l3.a test_l3
+make[1]: Leaving directory '<repo>/code/l3x86'
+make -C l2arm clean
+make[1]: Entering directory '<repo>/code/l2arm'
+rm -f *.o libnxa_l2.a test_l2
+make[1]: Leaving directory '<repo>/code/l2arm'
+make -C bench clean
+make[1]: Entering directory '<repo>/code/bench'
+rm -f bench
+make[1]: Leaving directory '<repo>/code/bench'
+make -C common check
+make[1]: Entering directory '<repo>/code/common'
+cc -O2 -std=c11 -Wall -Wextra -Wpedantic -o test_common test_common.c aes256.c polyval.c
+./test_common
+AES-256  FIPS 197 Appendix C.3               PASS
+POLYVAL  RFC 8452 Appendix A                 PASS
+ALL KNOWN-ANSWER TESTS PASS
+python3 verify_common.py ./test_common 200
+Python POLYVAL via AES-256-GCM vs cryptography:     200/200 match
+Python POLYVAL via AES-256-GCM-SIV vs cryptography: 200/200 match
+C AES-256 vs cryptography AES-256:                  200/200 match
+C POLYVAL vs validated Python POLYVAL:              200/200 match
+ALL CROSS-CHECKS PASS
+make[1]: Leaving directory '<repo>/code/common'
+make -C aes256set official   TESTDATA="<repo>/docs/35244-k00.docx"
+make[1]: Entering directory '<repo>/code/aes256set'
+cc -O2 -std=c11 -Wall -Wextra -Wpedantic -c nxa5.c -o nxa5.o
+cc -O2 -std=c11 -Wall -Wextra -Wpedantic -c ../common/aes256.c -o aes256.o
+cc -O2 -std=c11 -Wall -Wextra -Wpedantic -c ../common/polyval.c -o polyval.o
+cc -O2 -std=c11 -Wall -Wextra -Wpedantic -c ../common/aead1.c -o aead1.o
+ar rcs libnxa5.a nxa5.o aes256.o polyval.o aead1.o
+cc -O2 -std=c11 -Wall -Wextra -Wpedantic -o kat_cli kat_cli.c libnxa5.a
+python3 test_official.py "<repo>/docs/35244-k00.docx" ./kat_cli
+POLYVAL test #1: PASS
+POLYVAL test #2: PASS
+POLYVAL test #3: PASS
+POLYVAL test #4: PASS
+POLYVAL test #5: PASS
+POLYVAL test #6: PASS
+AES-256 CTR test #1 (4 keystream blocks): PASS
+AES-256 CTR test #2 (4 keystream blocks): PASS
+AES-256 CTR test #3 (4 keystream blocks): PASS
+
+9/9 official TS 35.244 tests pass
+make[1]: Leaving directory '<repo>/code/aes256set'
+make -C aes256set crosscheck SPEC="<repo>/docs/35243-k00.docx"
+make[1]: Entering directory '<repo>/code/aes256set'
+python3 ../common/extract_annexb.py "<repo>/docs/35243-k00.docx" annexb_35243.cpp
+wrote annexb_35243.cpp: 367 lines
+g++ -O2 -std=c++17 -w -o crosscheck_annexb crosscheck_annexb.cpp libnxa5.a
+./crosscheck_annexb 5000
+random trials per algorithm: 5000
+256-NEA5  R4 vs Annex B: MATCH (0 mismatches)
+256-NIA5  R4 vs Annex B: MATCH (0 mismatches)
+256-NCA5  R4 vs Annex B: MATCH (0 mismatches, incl. decrypt and tag check)
+make[1]: Leaving directory '<repo>/code/aes256set'
+make -C snow5gset official   TESTDATA="<repo>/docs/35241-k00.docx"
+make[1]: Entering directory '<repo>/code/snow5gset'
+rm -f *.o
+for f in nxa4.c snow5g.c ../common/aes256.c ../common/polyval.c ../common/aead1.c; do cc -O2 -std=c11 -Wall -Wextra -Wpedantic -c $f -o $(basename $f .c).o || exit 1; done
+ar rcs libnxa4.a nxa4.o snow5g.o aes256.o polyval.o aead1.o
+cc -O2 -std=c11 -Wall -Wextra -Wpedantic -o kat_cli kat_cli.c libnxa4.a
+python3 test_official.py "<repo>/docs/35241-k00.docx" ./kat_cli
+POLYVAL test #1: PASS
+POLYVAL test #2: PASS
+POLYVAL test #3: PASS
+POLYVAL test #4: PASS
+POLYVAL test #5: PASS
+POLYVAL test #6: PASS
+Snow 5G test #1: state after initialisation PASS; 4 keystream words PASS
+Snow 5G test #2: state after initialisation PASS; 4 keystream words PASS
+Snow 5G test #3: state after initialisation PASS; 4 keystream words PASS
+
+12/12 official TS 35.241 checks pass
+make[1]: Leaving directory '<repo>/code/snow5gset'
+make -C snow5gset crosscheck SPEC="<repo>/docs/35240-k10.docx"
+make[1]: Entering directory '<repo>/code/snow5gset'
+python3 ../common/extract_annexb.py "<repo>/docs/35240-k10.docx" annex_ref.cpp
+wrote annex_ref.cpp: 400 lines
+g++ -O2 -std=c++17 -w -o crosscheck_annex crosscheck_annex.cpp libnxa4.a
+./crosscheck_annex 5000
+random trials per algorithm: 5000
+256-NEA4  R4 vs Annex B: MATCH (0 mismatches)
+256-NIA4  R4 vs Annex B: MATCH (0 mismatches)
+256-NCA4  R4 vs Annex B: MATCH (0 mismatches, incl. decrypt and tag check)
+make[1]: Leaving directory '<repo>/code/snow5gset'
+make -C zuc256set official   TESTDATA="<repo>/docs/35247-k00.docx"
+make[1]: Entering directory '<repo>/code/zuc256set'
+rm -f *.o
+for f in nxa6.c zuc256.c ../common/aes256.c ../common/polyval.c ../common/aead1.c; do cc -O2 -std=c11 -Wall -Wextra -Wpedantic -c $f -o $(basename $f .c).o || exit 1; done
+ar rcs libnxa6.a nxa6.o zuc256.o aes256.o polyval.o aead1.o
+cc -O2 -std=c11 -Wall -Wextra -Wpedantic -o kat_cli kat_cli.c libnxa6.a
+python3 test_official.py "<repo>/docs/35247-k00.docx" ./kat_cli
+POLYVAL test #1: PASS
+POLYVAL test #2: PASS
+POLYVAL test #3: PASS
+POLYVAL test #4: PASS
+POLYVAL test #5: PASS
+POLYVAL test #6: PASS
+ZUC-256 test #1: state after initialisation PASS; 32 keystream words PASS
+ZUC-256 test #2: state after initialisation PASS; 32 keystream words PASS
+ZUC-256 test #3: state after initialisation PASS; 32 keystream words PASS
+
+12/12 official TS 35.247 checks pass
+make[1]: Leaving directory '<repo>/code/zuc256set'
+make -C zuc256set crosscheck SPEC="<repo>/docs/35246-k00.docx"
+make[1]: Entering directory '<repo>/code/zuc256set'
+python3 ../common/extract_annexb.py "<repo>/docs/35246-k00.docx" annex_ref.cpp
+wrote annex_ref.cpp: 401 lines
+g++ -O2 -std=c++17 -w -o crosscheck_annex crosscheck_annex.cpp libnxa6.a
+./crosscheck_annex 5000
+random trials per algorithm: 5000
+256-NEA6  R4 vs Annex A: MATCH (0 mismatches)
+256-NIA6  R4 vs Annex A: MATCH (0 mismatches)
+256-NCA6  R4 vs Annex A: MATCH (0 mismatches, incl. decrypt and tag check)
+make[1]: Leaving directory '<repo>/code/zuc256set'
+make[1]: Entering directory '<repo>/code/l2arm'
+rm -f *.o
+for f in aead1_l2a.c nxa5_l2a.c nxa4_l2a.c ../l2x86/nxa6_l2.c; do cc -O2 -std=c11 -Wall -Wextra -march=armv8-a+crypto -c $f -o $(basename $f .c).o || exit 1; done
+ar rcs libnxa_l2.a aead1_l2a.o nxa5_l2a.o nxa4_l2a.o nxa6_l2.o
+cc -O2 -std=c11 -Wall -Wextra -o test_l2 ../l2x86/test_l2.c libnxa_l2.a ../aes256set/nxa5.c ../snow5gset/nxa4.c ../snow5gset/snow5g.c ../zuc256set/nxa6.c ../zuc256set/zuc256.c ../common/aes256.c ../common/polyval.c ../common/aead1.c
+./test_l2 20000
+POLYVAL dot   L2 vs L1: MATCH (100000 trials)
+AES-256 (NxA5) L2 vs L1: NEA MATCH, NIA MATCH, NCA MATCH (20000 trials each)
+Snow 5G (NxA4) L2 vs L1: NEA MATCH, NIA MATCH, NCA MATCH (20000 trials each)
+ZUC-256 (NxA6) L2 vs L1: NEA MATCH, NIA MATCH, NCA MATCH (20000 trials each)
+ALL L2 CHECKS PASS
+make[1]: Leaving directory '<repo>/code/l2arm'
+ALL R4 CORRECTNESS CHECKS PASSED
+saved current settings to /var/tmp/r4_clock_state
+clock locked:
+  scaling_governor=performance
+  scaling_min_freq=2400000
+  scaling_max_freq=2400000
+  scaling_cur_freq=2400000
+  boost=0
+  perf_event_paranoid=1
+  frequency(0)=2400033792  temp=53.8'C
+running sweep on CPU 3 (about 5-10 minutes) ...
+cycles/byte (median)             16      40      64     128     256     576    1024    1500    4096    9000   16384   65536  262144 1048576   | setup (size 0)
+L2   256-NEA5                 42.13   17.65   10.99    6.04    3.52    2.19    1.71    1.53    1.26    1.17    1.14    1.11    1.12    1.12   | 598 cycles (249 ns)
+L2   256-NIA5                 48.01   21.29   13.40    7.69    4.14    2.26    1.42    1.23    0.74    0.63    0.57    0.53    0.52    0.52   | 719 cycles (300 ns)
+L2   256-NCA5                 51.95   23.89   14.50    8.91    5.26    3.37    2.51    2.36    1.85    1.74    1.68    1.64    1.63    1.74   | 721 cycles (301 ns)
+L2   256-NEA4                 17.70    8.20    5.06    2.98    1.92    1.34    1.14    1.08    0.96    0.92    0.90    0.89    0.90    1.00   | 250 cycles (104 ns)
+L2   256-NIA4                 23.68   11.75    7.33    4.73    2.62    1.58    1.04    0.97    0.64    0.58    0.54    0.52    0.52    0.52   | 337 cycles (141 ns)
+L2   256-NCA4                 26.50   13.59    8.36    5.76    3.54    2.49    1.93    1.89    1.54    1.49    1.44    1.42    1.41    1.41   | 342 cycles (143 ns)
+L2   256-NEA6                125.93   51.00   31.49   19.52   13.53   10.23    9.08    8.80    7.96    7.78    7.68    7.61    7.61    7.64   | 1518 cycles (633 ns)
+L2   256-NIA6                129.97   54.31   33.82   18.08    9.29    4.56    2.71    2.12    1.06    0.77    0.65    0.55    0.52    0.52   | 2043 cycles (853 ns)
+L2   256-NCA6                132.59   67.43   41.90   25.81   16.96   12.18   10.32    9.93    8.68    8.42    8.26    8.17    8.15    8.40   | 2045 cycles (853 ns)
+base OpenSSL-AES-256-CTR     120.52   49.93   30.82   15.78    8.41    4.33    2.87    2.31    1.47    1.21    1.10    1.02    0.99    1.00   | 1868 cycles (779 ns)
+base OpenSSL-AES-256-GCM     139.45   57.85   35.62   18.30    9.89    5.15    3.45    2.85    1.80    1.51    1.39    1.29    1.26    1.25   | 2147 cycles (895 ns)
+
+done: results/pi5_L2_base.csv and results/pi5_sysinfo.txt
+send me both files.
+restored: governor=ondemand min=1500000kHz max=2400000kHz boost=0 epp=n/a paranoid=2
+rbd@raspberrypi:~/Desktop/Sohel/all_Tier/r4/code/bench $ 

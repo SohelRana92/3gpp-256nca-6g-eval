@@ -1,0 +1,23 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Thu Oct 15 18:29:56 2026
+# Process ID         : 258370
+# Current directory  : /media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/vivado
+# Command line       : vivado -mode batch -nojournal -log logs/nca4_T.log -source build.tcl -tclargs nca4_T nca4_top ARCH=2 D=32
+# Log file           : /media/sohel/DC3C8DD33C8DA95A/Vivado_FPGA/R4_fpga/r4/code/fpga/vivado/logs/nca4_T.log
+# Journal file       : 
+# Running On         : sohel-HP-ProBook-440-G7
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 25.10
+# Processor Detail   : Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz
+# CPU Frequency      : 3201.975 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 7627 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 11922 MB
+# Available Virtual  : 7115 MB
+#-----------------------------------------------------------

@@ -1,0 +1,27 @@
+R4 - FPGA tier (Spartan-7 XC7S25, Arty S7-25), Vivado 2025.2
+=============================================================
+
+PART 1 - area, speed and power (board NOT needed), about 1-2 hours
+------------------------------------------------------------------
+  source <your Vivado path>/2025.2/Vivado/settings64.sh
+  cd r4/code/fpga/vivado
+  ONLY="ksg6" ./run_all.sh          # quick test with one design (5-10 min)
+  ./run_all.sh                      # all 11 designs
+  zip -r fpga_reports.zip reports logs
+
+PART 2 - run the engines on the board (board on USB), about 1 hour
+------------------------------------------------------------------
+Once only:
+  sudo apt install python3-serial
+  sudo usermod -aG dialout $USER     # then log out and in again
+  ls /dev/ttyUSB*                    # the board's serial port, usually /dev/ttyUSB1
+
+Then:
+  cd r4/code/fpga/vivado
+  ONLY="nca5_A" ./hw_test_all.sh /dev/ttyUSB1     # one design first (about 10 min)
+  ./hw_test_all.sh /dev/ttyUSB1                   # all six engines
+
+Each design must end with:  "... packets, 0 mismatches  -> ALL MATCH ON THE FPGA"
+LED LD2 blinks while the design runs; LD5 is on when the clock is locked.
+
+Outputs: vivado/reports and vivado/logs (part 1), vivado/hw (part 2).

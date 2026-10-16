@@ -1,0 +1,94 @@
+{\scriptsize\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}l l l r l r r r r l l@{}}
+\caption{Every timing-leakage test. Meas.: measurements in millions. $|t|_{\max}$: largest $|t|$ over all measurements and 100 cropped subsets. Medians in cycles (Zen~4: time-stamp counter; Pi~5: user-mode cycle counter). Verdict: leak if $|t| > 10$, possible if $4.5 < |t| \le 10$. File: \texttt{results/<platform>/<platform>\_<file>.csv}.}
+\label{tab:s-ct}\\
+\toprule
+Platform & Level & Algorithm & Bytes & Test & Meas. & $|t|_{\max}$ & Median 0 & Median 1 & Verdict & File \\
+\midrule
+\endfirsthead
+\toprule
+Platform & Level & Algorithm & Bytes & Test & Meas. & $|t|_{\max}$ & Median 0 & Median 1 & Verdict & File \\
+\midrule
+\endhead
+Zen 4 & ctrl & early exit & 64 & key & 20 & 12628.52 & 114.1 & 874.3 & \textbf{leak} & \texttt{ct} \\
+Zen 4 & ctrl & early exit & 64 & data & 20 & 0.58 & 874.3 & 874.2 & pass & \texttt{ct} \\
+Zen 4 & ctrl & branch-free & 64 & key & 20 & 0.61 & 874.0 & 874.0 & pass & \texttt{ct} \\
+Zen 4 & ctrl & branch-free & 64 & data & 20 & 0.16 & 874.0 & 874.0 & pass & \texttt{ct} \\
+Zen 4 & L1 & 256-NCA5 & 64 & key & 3.03 & 34.54 & 23933.7 & 23937.9 & \textbf{leak} & \texttt{ct} \\
+Zen 4 & L1 & 256-NCA5 & 64 & data & 3.04 & 1.68 & 23954.0 & 23954.2 & pass & \texttt{ct} \\
+Zen 4 & L1 & 256-NCA4 & 64 & key & 3.46 & 4.51 & 20856.1 & 20856.7 & \emph{possible} & \texttt{ct} \\
+Zen 4 & L1 & 256-NCA4 & 64 & data & 3.45 & 2.52 & 20885.0 & 20885.5 & pass & \texttt{ct} \\
+Zen 4 & L1 & 256-NCA6 & 64 & key & 5.68 & 13.16 & 12377.1 & 12379.2 & \textbf{leak} & \texttt{ct} \\
+Zen 4 & L1 & 256-NCA6 & 64 & data & 5.79 & 2.93 & 12268.4 & 12267.9 & pass & \texttt{ct} \\
+Zen 4 & L2 & 256-NCA5 & 64 & key & 20 & 1.03 & 494.0 & 494.0 & pass & \texttt{ct} \\
+Zen 4 & L2 & 256-NCA5 & 64 & data & 20 & 0.65 & 494.0 & 494.0 & pass & \texttt{ct} \\
+Zen 4 & L2 & 256-NCA4 & 64 & key & 20 & 1.35 & 456.0 & 456.0 & pass & \texttt{ct} \\
+Zen 4 & L2 & 256-NCA4 & 64 & data & 20 & 1.39 & 456.0 & 456.0 & pass & \texttt{ct} \\
+Zen 4 & L2 & 256-NCA6 & 64 & key & 20 & 127.75 & 2860.9 & 2862.2 & \textbf{leak} & \texttt{ct} \\
+Zen 4 & L2 & 256-NCA6 & 64 & data & 20 & 1.53 & 2864.2 & 2864.3 & pass & \texttt{ct} \\
+Zen 4 & L3 & 256-NCA5 & 1024 & key & 20 & 1.91 & 988.0 & 988.0 & pass & \texttt{ct} \\
+Zen 4 & L3 & 256-NCA5 & 1024 & data & 20 & 5.44 & 988.0 & 988.0 & \emph{possible} & \texttt{ct} \\
+Zen 4 & L3 & 256-NCA4 & 1024 & key & 20 & 2.88 & 1216.0 & 1216.0 & pass & \texttt{ct} \\
+Zen 4 & L3 & 256-NCA4 & 1024 & data & 20 & 7.83 & 1216.1 & 1216.1 & \emph{possible} & \texttt{ct} \\
+Zen 4 & L3 & 256-NCA6 & 1024 & key & 6.17 & 101.49 & 10688.6 & 10689.1 & \textbf{leak} & \texttt{ct} \\
+Zen 4 & L3 & 256-NCA6 & 1024 & data & 6.34 & 1.89 & 10698.2 & 10698.3 & pass & \texttt{ct} \\
+Zen 4 & base & OpenSSL-AES-256-GCM & 64 & key & 20 & 2.20 & 2168.1 & 2168.0 & pass & \texttt{ct} \\
+Zen 4 & base & OpenSSL-AES-256-GCM & 64 & data & 20 & 2.42 & 2165.8 & 2165.8 & pass & \texttt{ct} \\
+Zen 4 & base & OpenSSL-ChaCha20-Poly1305 & 64 & key & 12.42 & 1.31 & 2962.7 & 2962.7 & pass & \texttt{ct} \\
+Zen 4 & base & OpenSSL-ChaCha20-Poly1305 & 64 & data & 13.08 & 1.66 & 2953.0 & 2952.8 & pass & \texttt{ct} \\
+Zen 4 & base & libaegis-AEGIS-256 & 64 & key & 20 & 0.26 & 268.0 & 268.0 & pass & \texttt{ct} \\
+Zen 4 & base & libaegis-AEGIS-256 & 64 & data & 20 & 1.69 & 267.7 & 267.8 & pass & \texttt{ct} \\
+\midrule
+Zen 4 & L1 & 256-NCA4 & 64 & key & 20 & 17.59 & 21031.6 & 21032.8 & \textbf{leak} & \texttt{ct\_rerun} \\
+Zen 4 & L1 & 256-NCA4 & 64 & data & 20 & 1.74 & 21058.9 & 21059.1 & pass & \texttt{ct\_rerun} \\
+Zen 4 & L3 & 256-NCA5 & 1024 & key & 20 & 3.00 & 988.3 & 988.3 & pass & \texttt{ct\_rerun} \\
+Zen 4 & L3 & 256-NCA5 & 1024 & data & 20 & 5.42 & 988.2 & 988.3 & \emph{possible} & \texttt{ct\_rerun} \\
+Zen 4 & L3 & 256-NCA4 & 1024 & key & 20 & 1.39 & 1216.2 & 1216.2 & pass & \texttt{ct\_rerun} \\
+Zen 4 & L3 & 256-NCA4 & 1024 & data & 20 & 5.83 & 1216.1 & 1216.1 & \emph{possible} & \texttt{ct\_rerun} \\
+\midrule
+Zen 4 & L3 & 256-NCA5 & 1024 & key & 100 & 2.51 & 988.2 & 988.3 & pass & \texttt{ct\_l3long} \\
+Zen 4 & L3 & 256-NCA5 & 1024 & data & 100 & 9.69 & 988.7 & 988.7 & \emph{possible} & \texttt{ct\_l3long} \\
+Zen 4 & L3 & 256-NCA4 & 1024 & key & 100 & 9.11 & 1216.5 & 1216.5 & \emph{possible} & \texttt{ct\_l3long} \\
+Zen 4 & L3 & 256-NCA4 & 1024 & data & 100 & 13.05 & 1216.0 & 1216.0 & \textbf{leak} & \texttt{ct\_l3long} \\
+\midrule
+Zen 4 & L2 & 256-NCA6 & 64 & key & 20 & 190.89 & 2922.9 & 2919.5 & \textbf{leak} & \texttt{ct\_zuc} \\
+Zen 4 & L2 & 256-NCA6 & 64 & data & 20 & 1.61 & 2932.5 & 2932.5 & pass & \texttt{ct\_zuc} \\
+Zen 4 & L2ct & 256-NCA6 & 64 & key & 20 & 1.77 & 3068.7 & 3068.7 & pass & \texttt{ct\_zuc} \\
+Zen 4 & L2ct & 256-NCA6 & 64 & data & 20 & 2.22 & 3105.8 & 3105.7 & pass & \texttt{ct\_zuc} \\
+Zen 4 & L3 & 256-NCA6 & 1024 & key & 20 & 536.18 & 10672.1 & 10662.6 & \textbf{leak} & \texttt{ct\_zuc} \\
+Zen 4 & L3 & 256-NCA6 & 1024 & data & 20 & 2.67 & 10639.2 & 10639.2 & pass & \texttt{ct\_zuc} \\
+Zen 4 & L3ct & 256-NCA6 & 1024 & key & 20 & 1.96 & 11396.8 & 11396.6 & pass & \texttt{ct\_zuc} \\
+Zen 4 & L3ct & 256-NCA6 & 1024 & data & 20 & 0.96 & 11398.5 & 11398.5 & pass & \texttt{ct\_zuc} \\
+\midrule
+Pi 5 & ctrl & early exit & 64 & key & 15.17 & 13121.90 & 109.7 & 842.2 & \textbf{leak} & \texttt{ct} \\
+Pi 5 & ctrl & early exit & 64 & data & 13.9 & 0.95 & 834.5 & 834.5 & pass & \texttt{ct} \\
+Pi 5 & ctrl & branch-free & 64 & key & 13.63 & 2.13 & 829.6 & 829.6 & pass & \texttt{ct} \\
+Pi 5 & ctrl & branch-free & 64 & data & 13.92 & 2.44 & 829.6 & 829.6 & pass & \texttt{ct} \\
+Pi 5 & L1 & 256-NCA5 & 64 & key & 1.84 & 21.03 & 23085.3 & 23087.8 & \textbf{leak} & \texttt{ct} \\
+Pi 5 & L1 & 256-NCA5 & 64 & data & 1.84 & 1.63 & 23085.4 & 23085.1 & pass & \texttt{ct} \\
+Pi 5 & L1 & 256-NCA4 & 64 & key & 1.89 & 16.23 & 22376.4 & 22378.6 & \textbf{leak} & \texttt{ct} \\
+Pi 5 & L1 & 256-NCA4 & 64 & data & 1.9 & 2.28 & 22365.9 & 22365.8 & pass & \texttt{ct} \\
+Pi 5 & L1 & 256-NCA6 & 64 & key & 2.78 & 55.31 & 14409.6 & 14414.3 & \textbf{leak} & \texttt{ct} \\
+Pi 5 & L1 & 256-NCA6 & 64 & data & 2.78 & 0.84 & 14416.6 & 14416.5 & pass & \texttt{ct} \\
+Pi 5 & L2 & 256-NCA5 & 64 & key & 11.78 & 1.30 & 1278.8 & 1278.8 & pass & \texttt{ct} \\
+Pi 5 & L2 & 256-NCA5 & 64 & data & 11.88 & 1.69 & 1278.6 & 1278.6 & pass & \texttt{ct} \\
+Pi 5 & L2 & 256-NCA4 & 64 & key & 13.09 & 1.17 & 895.2 & 895.2 & pass & \texttt{ct} \\
+Pi 5 & L2 & 256-NCA4 & 64 & data & 13.2 & 2.16 & 894.9 & 894.9 & pass & \texttt{ct} \\
+Pi 5 & L2 & 256-NCA6 & 64 & key & 8.19 & 13.21 & 3038.1 & 3038.1 & \textbf{leak} & \texttt{ct} \\
+Pi 5 & L2 & 256-NCA6 & 64 & data & 8.25 & 3.06 & 3039.9 & 3040.0 & pass & \texttt{ct} \\
+Pi 5 & base & OpenSSL-AES-256-GCM & 64 & key & 8.09 & 1.52 & 3026.3 & 3026.3 & pass & \texttt{ct} \\
+Pi 5 & base & OpenSSL-AES-256-GCM & 64 & data & 8.23 & 1.56 & 3026.6 & 3026.5 & pass & \texttt{ct} \\
+Pi 5 & base & OpenSSL-ChaCha20-Poly1305 & 64 & key & 7.12 & 1.34 & 3845.6 & 3845.6 & pass & \texttt{ct} \\
+Pi 5 & base & OpenSSL-ChaCha20-Poly1305 & 64 & data & 7.21 & 1.53 & 3840.7 & 3840.8 & pass & \texttt{ct} \\
+Pi 5 & base & libaegis-AEGIS-256 & 64 & key & 14.01 & 1.76 & 643.1 & 643.1 & pass & \texttt{ct} \\
+Pi 5 & base & libaegis-AEGIS-256 & 64 & data & 14.19 & 2.01 & 643.2 & 643.1 & pass & \texttt{ct} \\
+\midrule
+Pi 5 & L2 & 256-NCA6 & 64 & key & 20 & 26.37 & 3036.6 & 3036.3 & \textbf{leak} & \texttt{ct\_zuc\_run1} \\
+Pi 5 & L2 & 256-NCA6 & 64 & data & 20 & 1.82 & 3034.3 & 3034.3 & pass & \texttt{ct\_zuc\_run1} \\
+\midrule
+Pi 5 & L2 & 256-NCA6 & 64 & key & 20 & 110.80 & 3038.0 & 3036.7 & \textbf{leak} & \texttt{ct\_zuc} \\
+Pi 5 & L2 & 256-NCA6 & 64 & data & 20 & 2.00 & 3034.8 & 3034.8 & pass & \texttt{ct\_zuc} \\
+Pi 5 & L2ct & 256-NCA6 & 64 & key & 20 & 1.99 & 5853.9 & 5853.9 & pass & \texttt{ct\_zuc} \\
+Pi 5 & L2ct & 256-NCA6 & 64 & data & 20 & 1.39 & 5854.2 & 5854.2 & pass & \texttt{ct\_zuc} \\
+\bottomrule
+\end{longtable}}

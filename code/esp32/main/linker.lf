@@ -1,0 +1,47 @@
+# Place every measured code path in internal RAM (IRAM for code, DRAM for
+# constant tables), so that no timing depends on flash-cache misses.
+# With code in flash, ZUC-256 L2 (18.7 KiB of unrolled code) missed in the
+# flash cache. The mbedTLS baselines get the same treatment.
+[mapping:r4_crypto]
+archive: libmain.a
+entries:
+    bench_esp32 (noflash)
+    nxa5_hw (noflash)
+    nxa5 (noflash)
+    nxa4 (noflash)
+    snow5g (noflash)
+    nxa6 (noflash)
+    zuc256 (noflash)
+    aes256 (noflash)
+    polyval (noflash)
+    aead1 (noflash)
+    tab_l2p (noflash)
+    aead1_l2p (noflash)
+    nxa5_l2p (noflash)
+    nxa4_l2p (noflash)
+    nxa6_l2 (noflash)
+    aegis256 (noflash)
+    aegis256_soft (noflash)
+    softaes (noflash)
+    common (noflash)
+
+[mapping:r4_mbedtls]
+archive: libmbedcrypto.a
+entries:
+    gcm (noflash)
+    aes (noflash)
+    cipher (noflash)
+    cipher_wrap (noflash)
+    platform_util (noflash)
+    constant_time (noflash)
+    esp_aes (noflash)
+    esp_aes_common (noflash)
+    esp_aes_gcm (noflash)
+    chachapoly (noflash)
+    chacha20 (noflash)
+    poly1305 (noflash)
+
+[mapping:r4_hal]
+archive: libhal.a
+entries:
+    aes_hal (noflash)

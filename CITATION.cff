@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite the paper and this package."
+title: "Full-mode implementation and evaluation of the 3GPP 256-NCA4, 256-NCA5 and 256-NCA6 algorithms for 6G: code and data"
+type: software
+version: "1.0.0"
+date-released: "2026-10-16"
+license: MIT
+authors:
+  - family-names: Rana
+    given-names: Sohel
+    affiliation: "Institute of Information and Communication Technology (IICT), Bangladesh University of Engineering and Technology (BUET)"
+  - family-names: Mondal
+    given-names: Md. Rubaiyat Hossain
+    affiliation: "Institute of Information and Communication Technology (IICT), Bangladesh University of Engineering and Technology (BUET)"
+keywords:
+  - 6G security
+  - 3GPP
+  - 256-bit algorithms
+  - Snow 5G
+  - AES-256
+  - ZUC-256
+  - authenticated encryption
+  - FPGA
+  - benchmarking
+abstract: >-
+  Full implementations of the 3GPP 256-bit algorithm sets (256-NEA, 256-NIA and
+  256-NCA with Snow 5G, AES-256 and ZUC-256, and the shared 256-AEAD1 framework)
+  at several optimization levels for an ESP32, a Raspberry Pi 5, an AMD Zen 4
+  processor and a Spartan-7 FPGA, with the benchmark, timing-leakage and energy
+  programs, all raw measurement data, and the scripts that produce every figure
+  and table of the paper.
+preferred-citation:
+  type: article
+  title: "Full-Mode Implementation of the 3GPP 256-NCA4, 256-NCA5 and 256-NCA6 Algorithms for 6G: Packet-Size, Energy and Constant-Time Evaluation on Microcontroller, ARM, x86 and FPGA"
+  authors:
+    - family-names: Rana
+      given-names: Sohel
+    - family-names: Mondal
+      given-names: Md. Rubaiyat Hossain
+  journal: "Cyber Security and Applications"
+  year: 2026
+  status: submitted

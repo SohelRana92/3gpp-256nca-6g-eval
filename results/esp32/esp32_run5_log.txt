@@ -1,0 +1,126 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6280
+load:0x40078000,len:15736
+load:0x40080400,len:4
+load:0x40080404,len:3920
+entry 0x40080648
+I (29) boot: ESP-IDF v5.4.4 2nd stage bootloader
+I (29) boot: compile time Oct 15 2026 21:49:13
+I (30) boot: Multicore bootloader
+I (31) boot: chip revision: v3.1
+I (34) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (71) boot:  2 factory          factory app      00 00 00010000 00100000
+I (77) boot: End of partition table
+I (81) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=09c18h ( 39960) map
+I (102) esp_image: segment 1: paddr=00019c40 vaddr=3ffb0000 size=04f10h ( 20240) load
+I (109) esp_image: segment 2: paddr=0001eb58 vaddr=40080000 size=014c0h (  5312) load
+I (112) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=2ab0ch (174860) map
+I (175) esp_image: segment 4: paddr=0004ab34 vaddr=400814c0 size=18bd8h (101336) load
+I (215) esp_image: segment 5: paddr=00063714 vaddr=50000000 size=0001ch (    28) load
+I (228) boot: Loaded app from partition at offset 0x10000
+I (228) boot: Disabling RNG early entropy source...
+I (238) cpu_start: Multicore app
+I (246) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (247) cpu_start: Pro cpu start user code
+I (247) cpu_start: cpu freq: 240000000 Hz
+I (249) app_init: Application information:
+I (252) app_init: Project name:     r4_bench_esp32
+I (257) app_init: App version:      1
+I (260) app_init: Compile time:     Oct 15 2026 21:48:19
+I (265) app_init: ELF file SHA256:  e778f5d89...
+I (270) app_init: ESP-IDF:          v5.4.4
+I (273) efuse_init: Min chip rev:     v0.0
+I (277) efuse_init: Max chip rev:     v3.99 
+I (281) efuse_init: Chip rev:         v3.1
+I (285) heap_init: Initializing. RAM available for dynamic allocation:
+I (291) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM
+I (296) heap_init: At 3FFC1BF0 len 0001E410 (121 KiB): DRAM
+I (302) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (307) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (313) heap_init: At 4009A098 len 00005F68 (23 KiB): IRAM
+I (319) spi_flash: detected chip: generic
+I (322) spi_flash: flash io: dio
+I (325) main_task: Started on CPU0
+I (335) main_task: Calling app_main()
+I (335) main_task: Returned from app_main()
+
+# R4 ESP32 benchmark
+# chip=esp32 cores=2 revision=v3.1 cpu_mhz=240 flash_mb=4 idf=v5.4.4 compiler=14.2.0 opt=O2
+# code placement: all measured code in IRAM, tables in DRAM (main/linker.lf)
+# libaegis soft AES: plain T-tables (FAVOR_PERFORMANCE)
+# task on core 1; free heap 231668 bytes
+# self-tests ...
+# L1 vs PC known answers (64 fixed cases per set, 9 algorithms): MATCH
+# POLYVAL dot L2 vs L1: MATCH (2000 trials)
+# AES-256 (NxA5) L2 vs L1: NEA MATCH, NIA MATCH, NCA MATCH (200 trials each)
+# Snow 5G (NxA4) L2 vs L1: NEA MATCH, NIA MATCH, NCA MATCH (200 trials each)
+# ZUC-256 (NxA6) L2 vs L1: NEA MATCH, NIA MATCH, NCA MATCH (200 trials each)
+# AES-256 (NxA5) HW vs L1: NEA MATCH, NIA MATCH, NCA MATCH (200 trials each)
+# ALL ESP32 SELF-TESTS PASS
+# KAT ChaCha20-Poly1305 (RFC 8439 2.8.2): ok
+# KAT AEGIS-256 (RFC 10032 A.3.2 #1): ok
+# self-tests took 12.1 s
+R4-CSV-BEGIN
+platform,level,set,alg,bytes,iters,reps,med_ns,q1_ns,q3_ns,min_ns,med_cycles,q1_cycles,q3_cycles,min_cycles,cpb,eff_ghz,med_tsc
+esp32,base,baseline,mbedTLS-AES-256-CTR,0,256,31,9914.06,9914.06,9929.69,9914.06,2379.0,2379.0,2382.9,2379.0,,0.2400,
+esp32,base,baseline,mbedTLS-AES-256-CTR,16,256,31,12628.91,12628.91,12648.44,12625.00,3030.1,3030.1,3035.2,3030.1,189.382,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-CTR,40,128,31,17453.12,17453.12,17468.75,17453.12,4188.2,4188.2,4190.7,4188.2,104.706,0.2400,
+esp32,base,baseline,mbedTLS-AES-256-CTR,64,128,31,20765.62,20765.62,20804.69,20765.62,4983.2,4983.2,4991.5,4983.2,77.863,0.2400,
+esp32,base,baseline,mbedTLS-AES-256-CTR,128,64,31,31625.00,31625.00,31625.00,31609.38,7587.5,7587.5,7587.5,7587.5,59.277,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-CTR,256,64,31,53328.12,53328.12,53406.25,53312.50,12795.5,12795.5,12814.2,12795.5,49.982,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-CTR,576,32,31,107593.75,107593.75,107718.75,107562.50,25815.9,25815.9,25852.8,25815.9,44.819,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-CTR,1024,16,31,183562.50,183562.50,183812.50,183500.00,44044.9,44044.9,44110.9,44044.9,43.013,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-CTR,1500,8,31,264625.00,264625.00,264750.00,264625.00,63504.8,63504.8,63520.9,63504.8,42.337,0.2400,
+esp32,base,baseline,mbedTLS-AES-256-CTR,4096,4,31,704500.00,704500.00,705750.00,704500.00,169054.5,169054.5,169318.5,169054.5,41.273,0.2400,
+esp32,base,baseline,mbedTLS-AES-256-CTR,9000,2,31,1537000.00,1537000.00,1539000.00,1536500.00,368787.0,368787.0,369370.5,368787.0,40.976,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-CTR,16384,1,31,2789000.00,2788000.00,2792000.00,2788000.00,669081.0,669081.0,670136.0,669081.0,40.837,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-GCM,0,64,31,55546.88,55531.25,55609.38,55531.25,13326.5,13326.5,13343.1,13326.5,,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-GCM,16,64,31,62171.88,62171.88,62218.75,62156.25,14920.6,14916.5,14933.0,14916.5,932.536,0.2400,
+esp32,base,baseline,mbedTLS-AES-256-GCM,40,32,31,74437.50,74437.50,74562.50,74437.50,17863.0,17863.0,17892.2,17863.0,446.575,0.2400,
+esp32,base,baseline,mbedTLS-AES-256-GCM,64,32,31,81812.50,81781.25,81906.25,81781.25,19627.0,19627.0,19657.7,19627.0,306.672,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-GCM,128,32,31,107968.75,107968.75,108093.75,107937.50,25906.0,25906.0,25938.7,25906.0,202.391,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-GCM,256,16,31,160312.50,160312.50,160562.50,160312.50,38468.0,38468.0,38526.1,38468.0,150.266,0.2400,
+esp32,base,baseline,mbedTLS-AES-256-GCM,576,8,31,291250.00,291125.00,291250.00,291125.00,69868.0,69868.0,69885.2,69868.0,121.299,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-GCM,1024,8,31,474375.00,474375.00,474875.00,474250.00,113830.0,113830.0,113963.1,113830.0,111.162,0.2400,
+esp32,base,baseline,mbedTLS-AES-256-GCM,1500,4,31,670250.00,670000.00,671000.00,670000.00,160817.0,160817.0,161063.8,160817.0,107.211,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-GCM,4096,2,31,1731000.00,1730500.00,1733000.00,1730500.00,415294.0,415294.0,415792.0,415294.0,101.390,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-GCM,9000,1,31,3739000.00,3738000.00,3743000.00,3738000.00,897116.0,897116.0,898172.0,897116.0,99.680,0.2399,
+esp32,base,baseline,mbedTLS-AES-256-GCM,16384,1,31,6759000.00,6755000.00,6760000.00,6755000.00,1622096.0,1621118.0,1622159.0,1621106.0,99.005,0.2400,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,0,128,31,19609.38,19609.38,19640.62,19601.56,4705.0,4705.0,4713.0,4704.9,,0.2399,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,16,128,31,30914.06,30914.06,30945.31,30914.06,7418.4,7418.2,7426.6,7417.8,463.653,0.2400,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,40,64,31,35187.50,35187.50,35203.12,35171.88,8443.6,8442.7,8444.6,8442.0,211.090,0.2400,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,64,64,31,36375.00,36359.38,36390.62,36359.38,8727.2,8726.9,8729.2,8725.8,136.363,0.2399,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,128,64,31,52703.12,52703.12,52765.62,52687.50,12648.1,12646.9,12663.5,12644.3,98.813,0.2400,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,256,32,31,85375.00,85375.00,85500.00,85343.75,20487.3,20485.7,20516.5,20483.6,80.028,0.2400,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,576,16,31,167062.50,167062.50,167312.50,167000.00,40092.2,40085.2,40146.3,40077.6,69.604,0.2400,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,1024,8,31,281500.00,281375.00,281500.00,281250.00,67533.1,67520.8,67551.0,67502.8,65.950,0.2399,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,1500,8,31,409375.00,409250.00,409875.00,409250.00,98233.0,98213.8,98349.4,98197.8,65.489,0.2400,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,4096,2,31,1065500.00,1065500.00,1066500.00,1064500.00,255709.0,255603.5,255838.5,255457.0,62.429,0.2400,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,9000,1,31,2323000.00,2322000.00,2325000.00,2320000.00,557384.0,557215.0,558002.0,556813.0,61.932,0.2399,
+esp32,base,baseline,mbedTLS-ChaCha20-Poly1305,16384,1,31,4204000.00,4202000.00,4205000.00,4199000.00,1008745.0,1008416.0,1009090.0,1007777.0,61.569,0.2399,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,0,32,31,83281.25,83250.00,83406.25,83250.00,19980.0,19980.0,20014.4,19980.0,,0.2399,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,16,32,31,87468.75,87437.50,87593.75,87437.50,20986.0,20986.0,21020.3,20986.0,1311.623,0.2399,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,40,32,31,96375.00,96343.75,96500.00,96343.75,23122.0,23122.0,23156.4,23122.0,578.049,0.2399,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,64,32,31,99968.75,99968.75,100093.75,99937.50,23986.0,23986.0,24020.5,23986.0,374.781,0.2399,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,128,32,31,116625.00,116625.00,116781.25,116625.00,27986.0,27986.0,28021.2,27986.0,218.640,0.2400,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,256,16,31,150000.00,150000.00,150250.00,149937.50,35986.9,35986.9,36053.2,35986.9,140.574,0.2399,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,576,16,31,233312.50,233312.50,233562.50,233250.00,55986.9,55986.9,56056.2,55986.9,97.200,0.2400,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,1024,8,31,350000.00,350000.00,350625.00,350000.00,83988.9,83988.9,84126.5,83988.9,82.020,0.2400,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,1500,8,31,475625.00,475625.00,476250.00,475625.00,114138.9,114138.9,114276.6,114138.9,76.093,0.2400,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,4096,2,31,1150500.00,1150000.00,1150500.00,1150000.00,276000.5,276000.5,276025.5,276000.5,67.383,0.2399,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,9000,1,31,2431000.00,2430000.00,2435000.00,2430000.00,583152.0,583152.0,584224.0,583152.0,64.795,0.2399,
+esp32,base,baseline,libaegis-AEGIS-256-ttab,16384,1,31,4351000.00,4351000.00,4355000.00,4350000.00,1044058.0,1044016.0,1045182.0,1044016.0,63.724,0.2400,
+R4-CSV-END
+R4-DONE
