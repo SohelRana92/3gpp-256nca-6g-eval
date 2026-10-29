@@ -1,13 +1,13 @@
-\begin{table}[p]
+\begin{table}[!htbp]
 \centering
-\caption{Edge tier (Raspberry Pi~5, one Cortex-A76 core at 2.4~GHz): all three modes at L1 and L2. Sources: \texttt{results/pi5/pi5\_final\_all\_levels.csv}; ChaCha20-Poly1305 and AEGIS-256 from \texttt{pi5\_base\_ref.csv}.}
+\caption{Edge tier (Pi~5, 2.4~GHz): all modes at L1 and L2. Sources: \texttt{pi5\_final\_all\_levels.csv}, \texttt{pi5\_base\_ref.csv}.}
 \label{tab:s-pi5}
 \footnotesize
-\begin{tabular}{@{}l l l r r r r r@{}}
+\begin{tabular}{@{}>{\bfseries}l l l r r r r r@{}}
 \toprule
-Set & Level & Algorithm & \multicolumn{3}{c}{Cycles per packet} & \multicolumn{2}{c}{64 KiB} \\
+\textbf{Set} & \textbf{Level} & \textbf{Algorithm} & \multicolumn{3}{c}{\textbf{Cycles per packet}} & \multicolumn{2}{c}{\textbf{64 KiB}} \\
 \cmidrule(lr){4-6}\cmidrule(l){7-8}
- & & & Setup & 40 B & 1500 B & c/B & Gbit/s \\
+& & & \textbf{Setup} & \textbf{40 B} & \textbf{1500 B} & \textbf{c/B} & \textbf{Gbit/s} \\
 \midrule
 AES-256 & L1 & 256-NEA5 & 1{,}593 & 6{,}822 & 165{,}243 & 108.7 & 0.2 \\
  & L1 & 256-NIA5 & 8{,}500 & 13{,}831 & 174{,}866 & 110.4 & 0.2 \\
@@ -16,7 +16,7 @@ AES-256 & L1 & 256-NEA5 & 1{,}593 & 6{,}822 & 165{,}243 & 108.7 & 0.2 \\
  & L2 & 256-NIA5 & 719 & 852 & 1{,}847 & 0.528 & 36.3 \\
  & L2 & 256-NCA5 & 721 & 955 & 3{,}538 & 1.637 & 11.7 \\
 \midrule
-Snow 5G & L1 & 256-NEA4 & 9{,}050 & 10{,}806 & 63{,}660 & 36.6 & 0.5 \\
+SNOW 5G & L1 & 256-NEA4 & 9{,}050 & 10{,}806 & 63{,}660 & 36.6 & 0.5 \\
  & L1 & 256-NIA4 & 12{,}375 & 17{,}675 & 178{,}302 & 110.5 & 0.2 \\
  & L1 & 256-NCA4 & 12{,}452 & 19{,}466 & 232{,}621 & 146.4 & 0.1 \\
  & L2 & 256-NEA4 & 250 & 328 & 1{,}613 & 0.892 & 21.5 \\

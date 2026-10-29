@@ -1,15 +1,15 @@
-\begin{table*}[p]
+\begin{table*}[!htbp]
 \centering
-\caption{256-NCA cycles per packet at every measured size, with a 16-byte tag and no associated data. Zen~4 uses L2 below 512 bytes and L3 from 512 bytes; the Pi~5 uses L2; the ESP32 uses HW and L2. GCM is OpenSSL AES-256-GCM on the servers and mbedTLS AES-256-GCM on the ESP32. Sources: the three \texttt{*\_final*.csv} files of Table~\ref{tab:s-zen4} to Table~\ref{tab:s-esp32}.}
+\caption{256-NCA cycles per packet at every size (Zen~4: L2 below 512~B, L3 above; GCM: OpenSSL or mbedTLS). Sources: \texttt{*\_final*.csv}.}
 \label{tab:s-sizes}
 \scriptsize
 \setlength{\tabcolsep}{2.6pt}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}r rrrr rrrr rrrrr@{}}
+\begin{tabular}{@{}>{\bfseries}r rrrr rrrr rrrrr@{}}
 \toprule
-Bytes & \multicolumn{4}{c}{Cloud: Zen 4} & \multicolumn{4}{c}{Edge: Pi 5} & \multicolumn{5}{c}{Device: ESP32} \\
+\textbf{Bytes} & \multicolumn{4}{c}{\textbf{Cloud: Zen 4}} & \multicolumn{4}{c}{\textbf{Edge: Pi 5}} & \multicolumn{5}{c}{\textbf{Device: ESP32}} \\
 \cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(l){10-14}
- & AES-256 & Snow 5G & ZUC-256 & GCM & AES-256 & Snow 5G & ZUC-256 & GCM & AES HW & AES-256 & Snow 5G & ZUC-256 & GCM \\
+& \textbf{AES-256} & \textbf{SNOW 5G} & \textbf{ZUC-256} & \textbf{GCM} & \textbf{AES-256} & \textbf{SNOW 5G} & \textbf{ZUC-256} & \textbf{GCM} & \textbf{AES HW} & \textbf{AES-256} & \textbf{SNOW 5G} & \textbf{ZUC-256} & \textbf{GCM} \\
 \midrule
 0 & 256 & 234 & 2{,}088 & 1{,}957 & 721 & 342 & 2{,}045 & 2{,}147 & 5{,}871 & 10{,}523 & 19{,}326 & 18{,}595 & 13{,}326 \\
 16 & 322 & 314 & 2{,}202 & 2{,}071 & 831 & 424 & 2{,}121 & 2{,}231 & 7{,}395 & 13{,}482 & 21{,}501 & 19{,}930 & 14{,}920 \\

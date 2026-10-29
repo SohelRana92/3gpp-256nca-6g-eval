@@ -2,15 +2,17 @@ cff-version: 1.2.0
 message: "If you use this software or data, please cite the paper and this package."
 title: "Full-mode implementation and evaluation of the 3GPP 256-NCA4, 256-NCA5 and 256-NCA6 algorithms for 6G: code and data"
 type: software
-version: "1.0.0"
-date-released: "2026-10-16"
+version: "1.0.1"
+doi: "10.5281/zenodo.23415233"
+date-released: "2026-10-29"
 license: MIT
+repository-code: "https://github.com/SohelRana92/3gpp-256nca-6g-eval"
 authors:
   - family-names: Rana
     given-names: Sohel
     affiliation: "Institute of Information and Communication Technology (IICT), Bangladesh University of Engineering and Technology (BUET)"
   - family-names: Mondal
-    given-names: Md. Rubaiyat Hossain
+    given-names: M. Rubaiyat Hossain
     affiliation: "Institute of Information and Communication Technology (IICT), Bangladesh University of Engineering and Technology (BUET)"
 keywords:
   - 6G security
@@ -27,16 +29,16 @@ abstract: >-
   256-NCA with Snow 5G, AES-256 and ZUC-256, and the shared 256-AEAD1 framework)
   at several optimization levels for an ESP32, a Raspberry Pi 5, an AMD Zen 4
   processor and a Spartan-7 FPGA, with the benchmark, timing-leakage and energy
-  programs, all raw measurement data, and the scripts that produce every figure
-  and table of the paper.
+  programs, all raw measurement data, and the scripts that rebuild the merged results
+  and the supplementary tables.
 preferred-citation:
   type: article
-  title: "Full-Mode Implementation of the 3GPP 256-NCA4, 256-NCA5 and 256-NCA6 Algorithms for 6G: Packet-Size, Energy and Constant-Time Evaluation on Microcontroller, ARM, x86 and FPGA"
+  title: "Full-Mode Evaluation of the 3GPP 256-bit Confidentiality and Integrity Algorithm Sets for 6G: Packet Size, Energy and Timing Leakage on Microcontroller, ARM, x86 and FPGA"
   authors:
     - family-names: Rana
       given-names: Sohel
     - family-names: Mondal
-      given-names: Md. Rubaiyat Hossain
+      given-names: M. Rubaiyat Hossain
   journal: "Cyber Security and Applications"
   year: 2026
   status: submitted

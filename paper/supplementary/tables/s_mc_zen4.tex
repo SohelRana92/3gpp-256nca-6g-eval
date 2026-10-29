@@ -1,19 +1,19 @@
-\begin{table}[p]
+\begin{table}[!htbp]
 \centering
-\caption{Multi-core throughput on Zen~4 (L3 and reference schemes): total Gbit/s over all threads, median of three 2-second runs. Threads go to separate physical cores first, and 16 uses both hardware threads of all eight cores. Eff.\ is the throughput on 8 cores divided by 8 times the single-core value. Source: \texttt{results/zen4/zen4\_mc.csv}.}
+\caption{Multi-core throughput on Zen~4 in Gbit/s (16: both threads of all cores; Eff.: 8-core over 8$\times$ single-core). Source: \texttt{zen4\_mc.csv}.}
 \label{tab:s-mc-zen4}
 \footnotesize
-\begin{tabular}{@{}l r r r r r r r@{}}
+\begin{tabular}{@{}>{\bfseries}l r r r r r r r@{}}
 \toprule
-Algorithm & Bytes & \multicolumn{5}{c}{Threads} & Eff. \\
+\textbf{Algorithm} & \textbf{Bytes} & \multicolumn{5}{c}{\textbf{Threads}} & \textbf{Eff.} \\
 \cmidrule(lr){3-7}
- & & 1 & 2 & 4 & 8 & 16 & (\%) \\
+& & \textbf{1} & \textbf{2} & \textbf{4} & \textbf{8} & \textbf{16} & \textbf{(\%)} \\
 \midrule
 256-NCA5 (AES-256) & 40 & 3.11 & 6.14 & 10.5 & 22.4 & 31.4 & 90 \\
  & 1500 & 34.5 & 68.6 & 132.3 & 267.9 & 325.0 & 97 \\
  & 65536 & 64.9 & 127.7 & 251.1 & 505.7 & 544.7 & 97 \\
 \addlinespace[2pt]
-256-NCA4 (Snow 5G) & 40 & 3.14 & 5.85 & 9.52 & 19.9 & 27.6 & 79 \\
+256-NCA4 (SNOW 5G) & 40 & 3.14 & 5.85 & 9.52 & 19.9 & 27.6 & 79 \\
  & 1500 & 28.5 & 56.5 & 108.8 & 220.0 & 257.9 & 96 \\
  & 65536 & 44.0 & 87.3 & 175.1 & 347.1 & 377.2 & 99 \\
 \addlinespace[2pt]

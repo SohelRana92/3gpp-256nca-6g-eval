@@ -1,13 +1,30 @@
 {
-  "title": "Full-mode implementation and evaluation of the 3GPP 256-NCA4, 256-NCA5 and 256-NCA6 algorithms for 6G: code and data",
+  "title": "Full-mode evaluation of the 3GPP 256-bit confidentiality and integrity algorithm sets for 6G: code and data",
   "upload_type": "software",
-  "description": "<p>Code, raw measurement data and analysis scripts for the paper <em>Full-Mode Implementation of the 3GPP 256-NCA4, 256-NCA5 and 256-NCA6 Algorithms for 6G: Packet-Size, Energy and Constant-Time Evaluation on Microcontroller, ARM, x86 and FPGA</em> (submitted to Cyber Security and Applications). The package implements 256-NEA, 256-NIA and 256-NCA with Snow 5G, AES-256 and ZUC-256 at several optimization levels, measures them on an ESP32, a Raspberry Pi 5, an AMD Zen 4 processor and a Spartan-7 FPGA, and contains every raw result file and the scripts that produce every figure and table. The 3GPP specifications, their reference code and their test data are not included.</p>",
+  "description": "<p>Code and raw measurement data for the paper <em>Full-Mode Evaluation of the 3GPP 256-bit Confidentiality and Integrity Algorithm Sets for 6G: Packet Size, Energy and Timing Leakage on Microcontroller, ARM, x86 and FPGA</em> (submitted to the Journal of Cryptographic Engineering). The package implements 256-NEA, 256-NIA and 256-NCA with SNOW 5G, AES-256 and ZUC-256 at several optimization levels and as FPGA designs, measures them on an ESP32, a Raspberry Pi 5, an AMD Zen 4 processor and a Spartan-7 FPGA, and contains every raw result file, the script that rebuilds the merged results and the script that generates the supplementary tables. The 3GPP specifications, their reference code and their test data are not included.</p>",
   "creators": [
-    {"name": "Rana, Sohel", "affiliation": "Institute of Information and Communication Technology (IICT), Bangladesh University of Engineering and Technology (BUET)"},
-    {"name": "Mondal, Md. Rubaiyat Hossain", "affiliation": "Institute of Information and Communication Technology (IICT), Bangladesh University of Engineering and Technology (BUET)"}
+    {
+      "name": "Rana, Sohel",
+      "affiliation": "Institute of Information and Communication Technology (IICT), Bangladesh University of Engineering and Technology (BUET)"
+    },
+    {
+      "name": "Mondal, M. Rubaiyat Hossain",
+      "affiliation": "Institute of Information and Communication Technology (IICT), Bangladesh University of Engineering and Technology (BUET)"
+    }
   ],
   "license": "MIT",
   "access_right": "open",
-  "keywords": ["6G security", "3GPP", "256-bit algorithms", "Snow 5G", "AES-256", "ZUC-256", "authenticated encryption", "FPGA", "benchmarking", "timing side channel"],
-  "version": "1.0.0"
+  "keywords": [
+    "6G security",
+    "3GPP",
+    "256-bit algorithms",
+    "SNOW 5G",
+    "AES-256",
+    "ZUC-256",
+    "authenticated encryption",
+    "FPGA",
+    "benchmarking",
+    "timing side channel"
+  ],
+  "version": "1.0.1"
 }

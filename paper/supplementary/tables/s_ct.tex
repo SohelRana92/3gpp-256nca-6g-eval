@@ -1,13 +1,13 @@
 {\scriptsize\setlength{\tabcolsep}{3.5pt}
-\begin{longtable}{@{}l l l r l r r r r l l@{}}
-\caption{Every timing-leakage test. Meas.: measurements in millions. $|t|_{\max}$: largest $|t|$ over all measurements and 100 cropped subsets. Medians in cycles (Zen~4: time-stamp counter; Pi~5: user-mode cycle counter). Verdict: leak if $|t| > 10$, possible if $4.5 < |t| \le 10$. File: \texttt{results/<platform>/<platform>\_<file>.csv}.}
+\begin{longtable}{@{}>{\bfseries}l l l r l r r r r l l@{}}
+\caption{All timing-leakage tests (Meas.: millions; medians in cycles; leak: $|t| > 10$; possible: $4.5 < |t| \le 10$). Source: \texttt{<platform>\_<file>.csv}.}
 \label{tab:s-ct}\\
 \toprule
-Platform & Level & Algorithm & Bytes & Test & Meas. & $|t|_{\max}$ & Median 0 & Median 1 & Verdict & File \\
+\textbf{Platform} & \textbf{Level} & \textbf{Algorithm} & \textbf{Bytes} & \textbf{Test} & \textbf{Meas.} & \textbf{$|t|_{\max}$} & \textbf{Median 0} & \textbf{Median 1} & \textbf{Verdict} & \textbf{File} \\
 \midrule
 \endfirsthead
 \toprule
-Platform & Level & Algorithm & Bytes & Test & Meas. & $|t|_{\max}$ & Median 0 & Median 1 & Verdict & File \\
+\textbf{Platform} & \textbf{Level} & \textbf{Algorithm} & \textbf{Bytes} & \textbf{Test} & \textbf{Meas.} & \textbf{$|t|_{\max}$} & \textbf{Median 0} & \textbf{Median 1} & \textbf{Verdict} & \textbf{File} \\
 \midrule
 \endhead
 Zen 4 & ctrl & early exit & 64 & key & 20 & 12628.52 & 114.1 & 874.3 & \textbf{leak} & \texttt{ct} \\

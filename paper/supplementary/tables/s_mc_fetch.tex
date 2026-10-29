@@ -1,13 +1,13 @@
-\begin{table}[p]
+\begin{table}[!htbp]
 \centering
-\caption{OpenSSL on Zen~4 with the usual call (\texttt{EVP\_aes\_256\_gcm()} per packet) and with a cipher object fetched once per thread (\texttt{EVP\_CIPHER\_fetch}); the key is set up for every packet in both cases: total Gbit/s over all threads, median of three 2-second runs. Threads go to separate physical cores first, and 16 uses both hardware threads of all eight cores. Eff.\ is the throughput on 8 cores divided by 8 times the single-core value. Source: \texttt{results/zen4/zen4\_mc\_ossl.csv}.}
+\caption{OpenSSL on Zen~4: usual call versus a cipher object fetched once per thread, in Gbit/s (Eff.: 8-core over 8$\times$ single-core). Source: \texttt{zen4\_mc\_ossl.csv}.}
 \label{tab:s-mc-fetch}
 \footnotesize
-\begin{tabular}{@{}l r r r r r r r@{}}
+\begin{tabular}{@{}>{\bfseries}l r r r r r r r@{}}
 \toprule
-Algorithm & Bytes & \multicolumn{5}{c}{Threads} & Eff. \\
+\textbf{Algorithm} & \textbf{Bytes} & \multicolumn{5}{c}{\textbf{Threads}} & \textbf{Eff.} \\
 \cmidrule(lr){3-7}
- & & 1 & 2 & 4 & 8 & 16 & (\%) \\
+& & \textbf{1} & \textbf{2} & \textbf{4} & \textbf{8} & \textbf{16} & \textbf{(\%)} \\
 \midrule
 OpenSSL AES-256-GCM & 40 & 0.58 & 0.93 & 1.08 & 0.82 & 1.06 & 18 \\
  & 1500 & 15.8 & 27.6 & 37.9 & 31.5 & 39.6 & 25 \\

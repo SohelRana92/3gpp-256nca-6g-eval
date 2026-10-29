@@ -37,7 +37,7 @@ cd 3gpp-256nca-6g-eval
 git init -b main
 git add .
 git commit -m "Initial release: code, data and scripts"
-git remote add origin https://github.com/<username>/3gpp-256nca-6g-eval.git
+git remote add origin https://github.com/SohelRana92/3gpp-256nca-6g-eval.git
 git push -u origin main
 ```
 
@@ -74,13 +74,13 @@ zenodo.org > New upload. Upload the single file `3gpp-256nca-6g-eval_v1.0.0.zip`
 | Resource type | Software |
 | Title | Full-mode implementation and evaluation of the 3GPP 256-NCA4, 256-NCA5 and 256-NCA6 algorithms for 6G: code and data |
 | Publication date | the upload date |
-| Creators | Rana, Sohel (Person; affiliation: Bangladesh University of Engineering and Technology; role: Contact person) and Mondal, Md. Rubaiyat Hossain (Person; affiliation: Bangladesh University of Engineering and Technology) |
+| Creators | Rana, Sohel (Person; affiliation: Bangladesh University of Engineering and Technology; role: Contact person) and Mondal, M. Rubaiyat Hossain (Person; affiliation: Bangladesh University of Engineering and Technology) |
 | Description | copy from `.zenodo.json` |
 | Licenses | MIT License (add Creative Commons Attribution 4.0 International for the data) |
 | Keywords and subjects | 6G security; 3GPP; 256-bit algorithms; Snow 5G; AES-256; ZUC-256; authenticated encryption; FPGA; benchmarking; timing side channel |
 | Version | 1.0.0 |
 | Language | English |
-| Related works | "Is supplement to" > URL > `https://github.com/<username>/3gpp-256nca-6g-eval` (Resource type: Software) |
+| Related works | "Is supplement to" > URL > `https://github.com/SohelRana92/3gpp-256nca-6g-eval` (Resource type: Software) |
 | Funding | none |
 | Visibility | Public |
 
@@ -89,7 +89,7 @@ Then Publish. Zenodo shows the DOI at the top right of the record.
 ## 4. After the DOI exists
 
 - `README.md`: replace "DOI to be added after the first Zenodo release" with the DOI.
-- `CITATION.cff`: add `doi: 10.5281/zenodo.<number>` and `repository-code: https://github.com/<username>/3gpp-256nca-6g-eval`.
+- `CITATION.cff`: add `doi: 10.5281/zenodo.<number>` and `repository-code: https://github.com/SohelRana92/3gpp-256nca-6g-eval`.
 - Supplement (`paper/supplementary/supplementary.tex`): fill `\repourl` and `\zenodo`.
 - Main paper, Data availability: the GitHub URL and the DOI.
 - Commit these changes. With route A, a new release `v1.0.1` gets a new version DOI under the

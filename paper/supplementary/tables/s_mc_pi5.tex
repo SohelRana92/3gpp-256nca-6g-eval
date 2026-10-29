@@ -1,19 +1,19 @@
-\begin{table}[p]
+\begin{table}[!htbp]
 \centering
-\caption{Multi-core throughput on the Pi~5 (L2 and reference schemes): total Gbit/s over all threads, median of three 2-second runs. Threads go to separate physical cores first. Eff.\ is the throughput on 4 cores divided by 4 times the single-core value. Source: \texttt{results/pi5/pi5\_mc.csv}.}
+\caption{Multi-core throughput on the Pi~5 in Gbit/s (Eff.: 4-core over 4$\times$ single-core). Source: \texttt{pi5\_mc.csv}.}
 \label{tab:s-mc-pi5}
 \footnotesize
-\begin{tabular}{@{}l r r r r r@{}}
+\begin{tabular}{@{}>{\bfseries}l r r r r r@{}}
 \toprule
-Algorithm & Bytes & \multicolumn{3}{c}{Threads} & Eff. \\
+\textbf{Algorithm} & \textbf{Bytes} & \multicolumn{3}{c}{\textbf{Threads}} & \textbf{Eff.} \\
 \cmidrule(lr){3-5}
- & & 1 & 2 & 4 & (\%) \\
+& & \textbf{1} & \textbf{2} & \textbf{4} & \textbf{(\%)} \\
 \midrule
 256-NCA5 (AES-256) & 40 & 0.82 & 1.58 & 2.88 & 88 \\
  & 1500 & 8.13 & 16.1 & 29.5 & 91 \\
  & 65536 & 11.7 & 23.3 & 43.8 & 93 \\
 \addlinespace[2pt]
-256-NCA4 (Snow 5G) & 40 & 1.41 & 2.70 & 5.08 & 90 \\
+256-NCA4 (SNOW 5G) & 40 & 1.41 & 2.70 & 5.08 & 90 \\
  & 1500 & 10.2 & 20.1 & 36.7 & 90 \\
  & 65536 & 13.4 & 26.8 & 48.4 & 90 \\
 \addlinespace[2pt]

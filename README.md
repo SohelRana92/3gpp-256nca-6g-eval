@@ -25,7 +25,7 @@ file in `results/`.
 ## Quick start (Linux, x86-64 or aarch64)
 
 ```
-sudo apt install build-essential libssl-dev python3-pandas python3-matplotlib
+sudo apt install build-essential libssl-dev python3-pandas
 cd code
 make -C common check                  # AES-256 and POLYVAL against FIPS 197 and RFC 8452
 make -C l2x86 check                   # x86-64: L2 against L1, 20000 random inputs per algorithm
@@ -37,11 +37,10 @@ make -C bench                         # benchmark, then see docs/REPRODUCE.md
 The checks against the official 3GPP test data need your own copies of the 3GPP
 specifications. See [docs/3GPP_REFERENCE_CODE.md](docs/3GPP_REFERENCE_CODE.md).
 
-To rebuild every figure and supplementary table from the raw data:
+To rebuild the merged result files and the supplementary tables from the raw data:
 
 ```
 python3 analysis/build_final_csv.py           # rebuilds the merged CSV files and checks them
-for f in paper/figures/fig*.py; do python3 "$f"; done
 python3 paper/supplementary/make_tables.py
 ```
 
@@ -56,11 +55,10 @@ python3 paper/supplementary/make_tables.py
 | `code/l2port` | Portable 32-bit L2, used on the ESP32 |
 | `code/bench` | Single-core benchmark, multi-core benchmark, timing-leakage test (dudect method), Pi 5 energy |
 | `code/esp32` | ESP-IDF project for the device tier |
-| `code/fpga` | VHDL engines, testbenches, vectors, board wrapper and Vivado scripts |
+| `code/fpga` | VHDL designs, testbenches, vectors, board wrapper and Vivado scripts |
 | `code/third_party/libaegis` | libaegis 0.9.1, unchanged (MIT) |
 | `results/` | All raw measurement files (see [results/README.md](results/README.md)) |
 | `analysis/` | Rebuilds the merged result files from the individual runs |
-| `paper/figures` | One script per figure of the paper |
 | `paper/supplementary` | Supplementary material (PDF, LaTeX source and table generator) |
 | `docs/` | Reproduction guide and notes on the 3GPP reference code |
 
@@ -73,7 +71,7 @@ the Pi 5, the ESP32 runs and the FPGA flow.
 ## Licence
 
 - Our code: MIT licence ([LICENSE](LICENSE)).
-- Our data, figures and documentation: CC BY 4.0 ([LICENSE-DATA.md](LICENSE-DATA.md)).
+- Our data and documentation: CC BY 4.0 ([LICENSE-DATA.md](LICENSE-DATA.md)).
 - `code/third_party/libaegis`: MIT licence of its authors (see its own LICENSE file).
 - The 3GPP specifications, their reference code and their test data are not part of this
   package.
@@ -81,7 +79,8 @@ the Pi 5, the ESP32 runs and the FPGA flow.
 ## Citation
 
 Please cite the paper and this package. [CITATION.cff](CITATION.cff) holds the metadata.
-Archived version: DOI to be added after the first Zenodo release.
+Repository: https://github.com/SohelRana92/3gpp-256nca-6g-eval  
+Archived versions (Zenodo, always resolves to the latest): https://doi.org/10.5281/zenodo.23415233
 
 ## Contact
 

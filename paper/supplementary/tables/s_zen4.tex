@@ -1,13 +1,13 @@
-\begin{table}[p]
+\begin{table}[!htbp]
 \centering
-\caption{Cloud tier (Zen~4, one core at 3.8~GHz): all three modes at every level. Setup is an empty packet. Sources: \texttt{results/zen4/zen4\_final\_all\_levels.csv}; ChaCha20-Poly1305 and AEGIS-256 from \texttt{zen4\_base\_ref.csv}. L3 runs L2 code below 512 bytes.}
+\caption{Cloud tier (Zen~4, 3.8~GHz): all modes at every level; L3 runs L2 code below 512~B. Sources: \texttt{zen4\_final\_all\_levels.csv}, \texttt{zen4\_base\_ref.csv}.}
 \label{tab:s-zen4}
 \footnotesize
-\begin{tabular}{@{}l l l r r r r r@{}}
+\begin{tabular}{@{}>{\bfseries}l l l r r r r r@{}}
 \toprule
-Set & Level & Algorithm & \multicolumn{3}{c}{Cycles per packet} & \multicolumn{2}{c}{64 KiB} \\
+\textbf{Set} & \textbf{Level} & \textbf{Algorithm} & \multicolumn{3}{c}{\textbf{Cycles per packet}} & \multicolumn{2}{c}{\textbf{64 KiB}} \\
 \cmidrule(lr){4-6}\cmidrule(l){7-8}
- & & & Setup & 40 B & 1500 B & c/B & Gbit/s \\
+& & & \textbf{Setup} & \textbf{40 B} & \textbf{1500 B} & \textbf{c/B} & \textbf{Gbit/s} \\
 \midrule
 AES-256 & L1 & 256-NEA5 & 1{,}206 & 7{,}562 & 199{,}030 & 131.4 & 0.2 \\
  & L1 & 256-NIA5 & 9{,}123 & 13{,}553 & 147{,}000 & 91.8 & 0.3 \\
@@ -19,7 +19,7 @@ AES-256 & L1 & 256-NEA5 & 1{,}206 & 7{,}562 & 199{,}030 & 131.4 & 0.2 \\
  & L3 & 256-NIA5 & 240 & 353 & 923 & 0.217 & 137.5 \\
  & L3 & 256-NCA5 & 272 & 389 & 1{,}299 & 0.461 & 64.8 \\
 \midrule
-Snow 5G & L1 & 256-NEA4 & 9{,}162 & 10{,}907 & 62{,}169 & 35.4 & 0.8 \\
+SNOW 5G & L1 & 256-NEA4 & 9{,}162 & 10{,}907 & 62{,}169 & 35.4 & 0.8 \\
  & L1 & 256-NIA4 & 12{,}434 & 16{,}886 & 150{,}341 & 91.8 & 0.3 \\
  & L1 & 256-NCA4 & 12{,}378 & 18{,}567 & 203{,}278 & 127.1 & 0.2 \\
  & L2 & 256-NEA4 & 146 & 188 & 931 & 0.518 & 57.7 \\

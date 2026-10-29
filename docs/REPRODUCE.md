@@ -6,7 +6,7 @@ leave the machine alone while it runs.
 
 Contents: [1 Correctness](#1-correctness) · [2 Zen 4 and Pi 5](#2-zen-4-and-raspberry-pi-5) ·
 [3 ESP32](#3-esp32-device-tier) · [4 FPGA](#4-fpga-hardware-tier) ·
-[5 Figures and tables](#5-figures-and-tables)
+[5 Supplementary tables](#5-supplementary-tables)
 
 ## 1. Correctness
 
@@ -64,7 +64,7 @@ summary must report cycles per byte. If it reports ns per byte, the perf counter
 (`perf_event_paranoid`).
 
 The files in `results/` keep the run names of our campaign. `analysis/build_final_csv.py`
-shows which of them form the merged files used by the figures:
+shows which of them form the merged files used in the paper:
 `zen4_L1.csv + zen4_L2_L3_base_final.csv`, `pi5_L1_L2_base_run1.csv (L1) + pi5_L2_base.csv`.
 The reference schemes come from `zen4_base_ref.csv` and `pi5_base_ref.csv`.
 
@@ -178,14 +178,13 @@ Each engine must end with `127 packets, 0 mismatches -> ALL MATCH ON THE FPGA`. 
 `hw/<engine>/hwtest.txt` and logs (ours: `results/fpga/hw_final/`). Simulation of the
 testbenches: `code/fpga/sim.sh` (GHDL).
 
-## 5. Figures and tables
+## 5. Supplementary tables
 
 ```
 python3 analysis/build_final_csv.py               # must print "matches" for all four files
-for f in paper/figures/fig*.py; do python3 "$f"; done
 python3 paper/supplementary/make_tables.py
 cd paper/supplementary && latexmk -pdf supplementary.tex
 ```
 
-Needs Python 3 with pandas and matplotlib, and a LaTeX installation for the supplement.
-Table S14 of the supplement maps every figure and table to its script and data.
+Needs Python 3 with pandas, and a LaTeX installation for the supplement.
+Table S13 of the supplement names the data file behind every figure and table.

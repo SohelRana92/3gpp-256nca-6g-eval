@@ -1,14 +1,14 @@
-\begin{table}[p]
+\begin{table}[!htbp]
 \centering
-\caption{Energy on one Pi~5 core at 2.4~GHz, from the power-management chip. nJ/B: rise in power over idle times run time, per byte, for the core rail and for the sum of all rails. $\mu$J/pkt: core-rail energy per packet. Idle and $\Delta P$: core rail. Spread: (max $-$ min)/median of the three repetitions. Medians of three 10-second runs. Sources: \texttt{results/pi5/pi5\_energy.csv} and \texttt{pi5\_energy\_ref.csv}.}
+\caption{Energy on one Pi~5 core at 2.4~GHz (median of three runs; spread: (max $-$ min)/median). Sources: \texttt{pi5\_energy.csv}, \texttt{pi5\_energy\_ref.csv}.}
 \label{tab:s-energy}
 \footnotesize
-\begin{tabular}{@{}l r r r r r r r r@{}}
+\begin{tabular}{@{}>{\bfseries}l r r r r r r r r@{}}
 \toprule
-Algorithm & Bytes & nJ/B & nJ/B & $\mu$J/pkt & Idle & $\Delta P$ & Spread & Max \\
- & & core & all rails & core & (W) & (W) & (\%) & $^\circ$C \\
+\textbf{Algorithm} & \textbf{Bytes} & \textbf{nJ/B} & \textbf{nJ/B} & \textbf{$\mu$J/pkt} & \textbf{Idle} & \textbf{$\Delta P$} & \textbf{Spread} & \textbf{Max} \\
+& & \textbf{core} & \textbf{all rails} & \textbf{core} & \textbf{(W)} & \textbf{(W)} & \textbf{(\%)} & \textbf{$^\circ$C} \\
 \midrule
-Snow 5G (NCA4), L2 & 40 & 7.03 & 7.04 & 0.281 & 1.71 & 1.23 & 1.9 & 57.6 \\
+SNOW 5G (NCA4), L2 & 40 & 7.03 & 7.04 & 0.281 & 1.71 & 1.23 & 1.9 & 57.6 \\
  & 1500 & 0.98 & 0.93 & 1.469 & 1.73 & 1.24 & 1.3 & 56.0 \\
  & 65536 & 0.84 & 0.87 & 54.919 & 1.75 & 1.40 & 3.3 & 57.1 \\
 \addlinespace[2pt]

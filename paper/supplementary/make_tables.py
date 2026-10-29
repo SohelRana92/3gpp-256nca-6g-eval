@@ -3,19 +3,18 @@
 
 Run from any directory:  python3 paper/supplementary/make_tables.py
 Inputs : results/**  (see the table captions for the exact file of each table)
-Outputs: paper/supplementary/tables/*.tex and paper/supplementary/figS5_mc.pdf/.png
+Outputs: paper/supplementary/tables/*.tex
 No number is typed by hand: every cell comes from a CSV median.
 """
 import os
 import re
 import pandas as pd
-import matplotlib.pyplot as plt
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RES = os.path.join(HERE, "..", "..", "results")
 OUT = os.path.join(HERE, "tables")
 os.makedirs(OUT, exist_ok=True)
-SETS = [("AES-256", "5"), ("Snow 5G", "4"), ("ZUC-256", "6")]
+SETS = [("AES-256", "5"), ("SNOW 5G", "4"), ("ZUC-256", "6")]
 
 
 def load(*p):
@@ -36,7 +35,42 @@ def fc(x):
     return f"{x:.3f}" if x < 10 else f"{x:.1f}"
 
 
+import re as _re
+import sys as _sys
+_sys.path.insert(0, HERE)
+from boldtab import bold_tables  # bold header row and first column
+
+# Concise captions (column abbreviations and the source file are kept).
+CAPTIONS = {
+    "s_zen4.tex": r"Cloud tier (Zen~4, 3.8~GHz): all modes at every level; L3 runs L2 code below 512~B. Sources: \texttt{zen4\_final\_all\_levels.csv}, \texttt{zen4\_base\_ref.csv}.",
+    "s_pi5.tex": r"Edge tier (Pi~5, 2.4~GHz): all modes at L1 and L2. Sources: \texttt{pi5\_final\_all\_levels.csv}, \texttt{pi5\_base\_ref.csv}.",
+    "s_esp32.tex": r"Device tier (ESP32, 240~MHz): all modes at L1, L2 and HW. Sources: \texttt{esp32\_final.csv}, \texttt{esp32\_run4.csv}, \texttt{esp32\_run5.csv}.",
+    "s_sizes.tex": r"256-NCA cycles per packet at every size (Zen~4: L2 below 512~B, L3 above; GCM: OpenSSL or mbedTLS). Sources: \texttt{*\_final*.csv}.",
+    "s_mc_zen4.tex": r"Multi-core throughput on Zen~4 in Gbit/s (16: both threads of all cores; Eff.: 8-core over 8$\times$ single-core). Source: \texttt{zen4\_mc.csv}.",
+    "s_mc_pi5.tex": r"Multi-core throughput on the Pi~5 in Gbit/s (Eff.: 4-core over 4$\times$ single-core). Source: \texttt{pi5\_mc.csv}.",
+    "s_mc_fetch.tex": r"OpenSSL on Zen~4: usual call versus a cipher object fetched once per thread, in Gbit/s (Eff.: 8-core over 8$\times$ single-core). Source: \texttt{zen4\_mc\_ossl.csv}.",
+    "s_energy.tex": r"Energy on one Pi~5 core at 2.4~GHz (median of three runs; spread: (max $-$ min)/median). Sources: \texttt{pi5\_energy.csv}, \texttt{pi5\_energy\_ref.csv}.",
+    "s_fpga.tex": r"All out-of-context builds on the XC7S25-1 ($f_{\max} = 1/(T - \mathrm{WNS})$; power: Vivado estimate, static 0.058~W). Source: \texttt{ooc\_final/reports/summary.csv}.",
+    "s_ct.tex": r"All timing-leakage tests (Meas.: millions; medians in cycles; leak: $|t| > 10$; possible: $4.5 < |t| \le 10$). Source: \texttt{<platform>\_<file>.csv}.",
+    "s_layout.tex": r"Largest change of the median cycles when the output buffer moves to five offsets in a 4~KiB page. Sources: \texttt{zen4\_layout.csv}, \texttt{pi5\_layout.csv}.",
+}
+
+
+def _set_caption(text, cap):
+    i = text.find("\\caption{")
+    if i < 0:
+        return text
+    j, depth = i + len("\\caption{"), 1
+    while depth:
+        depth += {"{": 1, "}": -1}.get(text[j], 0)
+        j += 1
+    return text[:i] + "\\caption{" + cap + "}" + text[j:]
+
+
 def write(name, text):
+    if name in CAPTIONS:
+        text = _set_caption(text, CAPTIONS[name])
+    text = bold_tables(text)
     open(os.path.join(OUT, name), "w").write(text)
     print("wrote", name)
 
@@ -66,7 +100,7 @@ def tier_table(name, label, caption, d, levels, refs, long_b, unit, scale):
         rows.append(f"\\multicolumn{{3}}{{@{{}}l}}{{{label_r}}} & {f0(c.get(0))} & {f0(c.get(40))} & {f0(c.get(1500))} & "
                     f"{fc(cpb)} & {long_b * 8 / ns[long_b] * scale:.1f} \\\\")
     lb = "64 KiB" if long_b == 65536 else "16 KiB"
-    write(name, f"""\\begin{{table}}[p]
+    write(name, f"""\\begin{{table}}[!htbp]
 \\centering
 \\caption{{{caption}}}
 \\label{{{label}}}
@@ -125,18 +159,18 @@ def best_zen(alg):
     return pd.concat([a[a.index < 512], b[b.index >= 512]])
 
 
-cols = [("Zen~4", "AES-256", best_zen("256-NCA5")), ("", "Snow 5G", best_zen("256-NCA4")), ("", "ZUC-256", best_zen("256-NCA6")),
+cols = [("Zen~4", "AES-256", best_zen("256-NCA5")), ("", "SNOW 5G", best_zen("256-NCA4")), ("", "ZUC-256", best_zen("256-NCA6")),
         ("", "GCM", med(z, "base", "OpenSSL-AES-256-GCM")),
-        ("Pi~5", "AES-256", med(p, "L2", "256-NCA5")), ("", "Snow 5G", med(p, "L2", "256-NCA4")), ("", "ZUC-256", med(p, "L2", "256-NCA6")),
+        ("Pi~5", "AES-256", med(p, "L2", "256-NCA5")), ("", "SNOW 5G", med(p, "L2", "256-NCA4")), ("", "ZUC-256", med(p, "L2", "256-NCA6")),
         ("", "GCM", med(p, "base", "OpenSSL-AES-256-GCM")),
-        ("ESP32", "AES HW", med(e, "HW", "256-NCA5")), ("", "AES-256", med(e, "L2", "256-NCA5")), ("", "Snow 5G", med(e, "L2", "256-NCA4")),
+        ("ESP32", "AES HW", med(e, "HW", "256-NCA5")), ("", "AES-256", med(e, "L2", "256-NCA5")), ("", "SNOW 5G", med(e, "L2", "256-NCA4")),
         ("", "ZUC-256", med(e, "L2", "256-NCA6")), ("", "GCM", med(e, "base", "mbedTLS-AES-256-GCM"))]
 sizes = sorted(set().union(*[set(c.index) for _, _, c in cols]))
 lines = []
 for s in sizes:
     lab = f"{s // 1024} KiB" if s >= 4096 and s % 1024 == 0 else f"{s}"
     lines.append(lab + " & " + " & ".join(f0(c.get(s)) for _, _, c in cols) + " \\\\")
-write("s_sizes.tex", f"""\\begin{{table*}}[p]
+write("s_sizes.tex", f"""\\begin{{table*}}[!htbp]
 \\centering
 \\caption{{256-NCA cycles per packet at every measured size, with a 16-byte tag and no associated data. Zen~4 uses L2 below 512 bytes and L3 from 512 bytes; the Pi~5 uses L2; the ESP32 uses HW and L2. GCM is OpenSSL AES-256-GCM on the servers and mbedTLS AES-256-GCM on the ESP32. Sources: the three \\texttt{{*\\_final*.csv}} files of Table~\\ref{{tab:s-zen4}} to Table~\\ref{{tab:s-esp32}}.}}
 \\label{{tab:s-sizes}}
@@ -160,7 +194,7 @@ Bytes & \\multicolumn{{4}}{{c}}{{Cloud: Zen 4}} & \\multicolumn{{4}}{{c}}{{Edge:
 def mc_table(d, threads, plat, label, src):
     g = d.groupby(["alg", "bytes", "threads"]).gbps_total.median()
     rows = []
-    names = {"256-NCA5": "256-NCA5 (AES-256)", "256-NCA4": "256-NCA4 (Snow 5G)", "256-NCA6": "256-NCA6 (ZUC-256)",
+    names = {"256-NCA5": "256-NCA5 (AES-256)", "256-NCA4": "256-NCA4 (SNOW 5G)", "256-NCA6": "256-NCA6 (ZUC-256)",
              "OpenSSL-AES-256-GCM": "OpenSSL AES-256-GCM", "OpenSSL-AES-256-GCM-fetch": "AES-256-GCM, fetched",
              "OpenSSL-ChaCha20-Poly1305": "OpenSSL ChaCha20-Poly1305",
              "OpenSSL-ChaCha20-Poly1305-fetch": "ChaCha20-Poly1305, fetched", "libaegis-AEGIS-256": "libaegis AEGIS-256"}
@@ -174,7 +208,7 @@ def mc_table(d, threads, plat, label, src):
                         + f" & {eff:.0f} \\\\")
         rows.append("\\addlinespace[2pt]")
     th = " & ".join(str(t) for t in threads)
-    return f"""\\begin{{table}}[p]
+    return f"""\\begin{{table}}[!htbp]
 \\centering
 \\caption{{Multi-core throughput on {'Zen~4 (L3 and reference schemes)' if plat == 'zen4' else 'the Pi~5 (L2 and reference schemes)'}: total Gbit/s over all threads, median of three 2-second runs. Threads go to separate physical cores first{', and 16 uses both hardware threads of all eight cores' if plat == 'zen4' else ''}. Eff.\\ is the throughput on {phys} cores divided by {phys} times the single-core value. Source: \\texttt{{{src}}}.}}
 \\label{{{label}}}
@@ -201,27 +235,6 @@ write("s_mc_fetch.tex", mc_table(zo, [1, 2, 4, 8, 16], "zen4", "tab:s-mc-fetch",
       .replace("Multi-core throughput on Zen~4 (L3 and reference schemes)",
                "OpenSSL on Zen~4 with the usual call (\\texttt{EVP\\_aes\\_256\\_gcm()} per packet) and with a cipher object fetched once per thread (\\texttt{EVP\\_CIPHER\\_fetch}); the key is set up for every packet in both cases"))
 
-fig, axes = plt.subplots(1, 2, figsize=(6.6, 2.5))
-plt.rcParams.update({"font.family": "serif", "font.size": 8})
-MK = {"256-NCA5": "o", "256-NCA4": "s", "256-NCA6": "^", "OpenSSL-AES-256-GCM": "x", "OpenSSL-ChaCha20-Poly1305": "+",
-      "libaegis-AEGIS-256": "D"}
-NM = {"256-NCA5": "AES-256", "256-NCA4": "Snow 5G", "256-NCA6": "ZUC-256", "OpenSSL-AES-256-GCM": "AES-256-GCM",
-      "OpenSSL-ChaCha20-Poly1305": "ChaCha20-Poly1305", "libaegis-AEGIS-256": "AEGIS-256"}
-for ax, (d, th, title) in zip(axes, [(pm, [1, 2, 4], "(a) Edge tier (Pi 5), 1500 B"), (zm, [1, 2, 4, 8], "(b) Cloud tier (Zen 4), 1500 B")]):
-    g = d[d.bytes == 1500].groupby(["alg", "threads"]).gbps_total.median()
-    for a in MK:
-        s = [g[(a, t)] / g[(a, 1)] for t in th]
-        ax.plot(th, s, color="black" if a.startswith("256") else "0.5", marker=MK[a], ms=3.5, lw=0.8, mfc="white", label=NM[a])
-    ax.plot(th, th, color="0.75", lw=0.8, ls=":")
-    ax.set_xticks(th)
-    ax.set_xlabel("Physical cores")
-    ax.set_title(title, fontsize=8)
-    ax.grid(True, color="0.9", lw=0.5)
-axes[0].set_ylabel("Speed-up over one core")
-axes[1].legend(fontsize=6, frameon=False, loc="upper left")
-fig.tight_layout()
-for ext in ("pdf", "png"):
-    fig.savefig(os.path.join(HERE, f"figS5_mc.{ext}"), dpi=300)
 
 # ---------------------------------------------------------------- S6: energy
 en = pd.concat([load("pi5", "pi5_energy.csv"), load("pi5", "pi5_energy_ref.csv")])
@@ -230,7 +243,7 @@ g = en.groupby(["alg", "bytes"]).agg(core=("nj_per_byte_core", "median"), total=
                                      dp=("dp_core", "median"), idle=("idle_core_w", "median"),
                                      spread=("nj_per_byte_core", lambda s: (s.max() - s.min()) / s.median() * 100),
                                      temp=("temp_c", "max"))
-names = {"256-NCA4": "Snow 5G (NCA4), L2", "256-NCA5": "AES-256 (NCA5), L2", "256-NCA6": "ZUC-256 (NCA6), L2",
+names = {"256-NCA4": "SNOW 5G (NCA4), L2", "256-NCA5": "AES-256 (NCA5), L2", "256-NCA6": "ZUC-256 (NCA6), L2",
          "OpenSSL-AES-256-GCM": "AES-256-GCM, OpenSSL", "OpenSSL-ChaCha20-Poly1305": "ChaCha20-Poly1305, OpenSSL",
          "libaegis-AEGIS-256": "AEGIS-256, libaegis"}
 rows = []
@@ -239,7 +252,7 @@ for a, nm in names.items():
         r = g.loc[(a, b)]
         rows.append(f"{nm if b == 40 else ''} & {b} & {r.core:.2f} & {r.total:.2f} & {r.core * b / 1000:.3f} & {r.idle:.2f} & {r.dp:.2f} & {r.spread:.1f} & {r.temp:.1f} \\\\")
     rows.append("\\addlinespace[2pt]")
-write("s_energy.tex", f"""\\begin{{table}}[p]
+write("s_energy.tex", f"""\\begin{{table}}[!htbp]
 \\centering
 \\caption{{Energy on one Pi~5 core at 2.4~GHz, from the power-management chip. nJ/B: rise in power over idle times run time, per byte, for the core rail and for the sum of all rails. $\\mu$J/pkt: core-rail energy per packet. Idle and $\\Delta P$: core rail. Spread: (max $-$ min)/median of the three repetitions. Medians of three 10-second runs. Sources: \\texttt{{results/pi5/pi5\\_energy.csv}} and \\texttt{{pi5\\_energy\\_ref.csv}}.}}
 \\label{{tab:s-energy}}
@@ -258,9 +271,9 @@ Algorithm & Bytes & nJ/B & nJ/B & $\\mu$J/pkt & Idle & $\\Delta P$ & Spread & Ma
 # ---------------------------------------------------------------- S7: FPGA
 oc = pd.read_csv(os.path.join(RES, "fpga", "ooc_final", "reports", "summary.csv")).drop_duplicates("tag", keep="last").set_index("tag")
 desc = {"ksg5_1": "AES-256 generator, 1 round/clk", "ksg5_2": "AES-256 generator, 2 rounds/clk",
-        "ksg4_1": "Snow 5G generator, 1 AES round/clk", "ksg4_2": "Snow 5G generator, 2 AES rounds/clk",
-        "ksg6": "ZUC-256 generator", "nca5_A": "256-NCA5 engine A", "nca5_T": "256-NCA5 engine T",
-        "nca4_A": "256-NCA4 engine A", "nca4_T": "256-NCA4 engine T", "nca6_A": "256-NCA6 engine A", "nca6_T": "256-NCA6 engine T"}
+        "ksg4_1": "SNOW 5G generator, 1 AES round/clk", "ksg4_2": "SNOW 5G generator, 2 AES rounds/clk",
+        "ksg6": "ZUC-256 generator", "nca5_A": "256-NCA5 design A", "nca5_T": "256-NCA5 design T",
+        "nca4_A": "256-NCA4 design A", "nca4_T": "256-NCA4 design T", "nca6_A": "256-NCA6 design A", "nca6_T": "256-NCA6 design T"}
 rows = []
 for t, nm in desc.items():
     r = oc.loc[t]
@@ -278,7 +291,7 @@ for t in ("nca5_A", "nca5_T", "nca4_A", "nca4_T", "nca6_A", "nca6_T"):
     f = oc.loc[t].fmax_mhz
     cyc.append(f"{desc[t]} & " + " & ".join(str(c[("NCA", b)]) for b in (0, 40, 576, 1500, 16384))
                + f" & {c[('NEA', 16384)]} & {c[('NIA', 1500)]} & {c[('NCA', 40)] / f * 1000:.0f} & {c[('NCA', 1500)] / f * 1000:.0f} \\\\")
-write("s_fpga.tex", f"""\\begin{{table*}}[p]
+write("s_fpga.tex", f"""\\begin{{table*}}[!htbp]
 \\centering
 \\caption{{Hardware tier, all out-of-context builds on the XC7S25-1 (Vivado 2025.2, second pass). $T$: clock period of the second pass; WNS: worst negative slack; $f_{{\\max}} = 1/(T - \\mathrm{{WNS}})$. Power: Vivado estimates with default switching activity; the static part is 0.058~W in every build. Source: \\texttt{{results/fpga/ooc\\_final/reports/summary.csv}} (last entry per build).}}
 \\label{{tab:s-fpga}}
@@ -304,7 +317,7 @@ Engine & \\multicolumn{{5}}{{c}}{{256-NCA cycles on the board}} & NEA & NIA & \\
 {chr(10).join(cyc)}
 \\bottomrule
 \\end{{tabular}}}}
-\\\\[2pt]{{\\footnotesize Board cycle counts from \\texttt{{results/fpga/hw\\_final/<engine>/hwtest.txt}} (127 of 127 packets match, 50~MHz).}}
+\\\\[2pt]{{\\footnotesize Board cycle counts from \\texttt{{results/fpga/hw\\_final/<design>/hwtest.txt}} (127 of 127 packets match, 50~MHz).}}
 \\end{{table*}}
 """)
 
@@ -347,7 +360,7 @@ for plat, fn, nm in [("zen4", "zen4_layout.csv", "Zen 4"), ("pi5", "pi5_layout.c
             q = d[(d.level == lev) & (d.alg == alg)]
             dev = q.groupby("bytes").med_cycles.agg(lambda s: (s.max() - s.min()) / s.min() * 100)
             rows.append(f"{nm} & {lev} & {alg} & {dev.max():.1f} & {dev.idxmax()} \\\\")
-write("s_layout.tex", f"""\\begin{{table}}[p]
+write("s_layout.tex", f"""\\begin{{table}}[!htbp]
 \\centering
 \\caption{{Buffer-placement test: the output buffer is placed at five offsets within a 4~KiB page (0, 64, 1024, 2048 and 3072 bytes). The table gives the largest relative change of the median cycles over the five offsets, and the packet size where it occurs. Sources: \\texttt{{results/zen4/zen4\\_layout.csv}} and \\texttt{{results/pi5/pi5\\_layout.csv}}.}}
 \\label{{tab:s-layout}}

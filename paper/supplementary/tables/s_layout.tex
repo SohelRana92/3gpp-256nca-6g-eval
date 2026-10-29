@@ -1,11 +1,11 @@
-\begin{table}[p]
+\begin{table}[!htbp]
 \centering
-\caption{Buffer-placement test: the output buffer is placed at five offsets within a 4~KiB page (0, 64, 1024, 2048 and 3072 bytes). The table gives the largest relative change of the median cycles over the five offsets, and the packet size where it occurs. Sources: \texttt{results/zen4/zen4\_layout.csv} and \texttt{results/pi5/pi5\_layout.csv}.}
+\caption{Largest change of the median cycles when the output buffer moves to five offsets in a 4~KiB page. Sources: \texttt{zen4\_layout.csv}, \texttt{pi5\_layout.csv}.}
 \label{tab:s-layout}
 \footnotesize
-\begin{tabular}{@{}l l l r r@{}}
+\begin{tabular}{@{}>{\bfseries}l l l r r@{}}
 \toprule
-Platform & Level & Algorithm & Max change (\%) & At bytes \\
+\textbf{Platform} & \textbf{Level} & \textbf{Algorithm} & \textbf{Max change (\%)} & \textbf{At bytes} \\
 \midrule
 Zen 4 & L2 & 256-NCA4 & 0.2 & 1500 \\
 Zen 4 & L2 & 256-NCA5 & 0.2 & 1500 \\

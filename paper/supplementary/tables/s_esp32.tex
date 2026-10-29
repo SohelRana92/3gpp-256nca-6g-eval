@@ -1,13 +1,13 @@
-\begin{table}[p]
+\begin{table}[!htbp]
 \centering
-\caption{Device tier (ESP32, one core at 240~MHz): all three modes at L1, L2 and HW. Sources: \texttt{results/esp32/esp32\_final.csv} (run~3); ChaCha20-Poly1305 and hardened AEGIS-256 from \texttt{esp32\_run4.csv}; AEGIS-256 with plain tables from \texttt{esp32\_run5.csv}.}
+\caption{Device tier (ESP32, 240~MHz): all modes at L1, L2 and HW. Sources: \texttt{esp32\_final.csv}, \texttt{esp32\_run4.csv}, \texttt{esp32\_run5.csv}.}
 \label{tab:s-esp32}
 \footnotesize
-\begin{tabular}{@{}l l l r r r r r@{}}
+\begin{tabular}{@{}>{\bfseries}l l l r r r r r@{}}
 \toprule
-Set & Level & Algorithm & \multicolumn{3}{c}{Cycles per packet} & \multicolumn{2}{c}{16 KiB} \\
+\textbf{Set} & \textbf{Level} & \textbf{Algorithm} & \multicolumn{3}{c}{\textbf{Cycles per packet}} & \multicolumn{2}{c}{\textbf{16 KiB}} \\
 \cmidrule(lr){4-6}\cmidrule(l){7-8}
- & & & Setup & 40 B & 1500 B & c/B & Mbit/s \\
+& & & \textbf{Setup} & \textbf{40 B} & \textbf{1500 B} & \textbf{c/B} & \textbf{Mbit/s} \\
 \midrule
 AES-256 & L1 & 256-NEA5 & 10{,}306 & 45{,}889 & 1{,}129{,}082 & 744.8 & 2.6 \\
  & L1 & 256-NIA5 & 60{,}564 & 106{,}725 & 1{,}506{,}690 & 964.9 & 2.0 \\
@@ -19,7 +19,7 @@ AES-256 & L1 & 256-NEA5 & 10{,}306 & 45{,}889 & 1{,}129{,}082 & 744.8 & 2.6 \\
  & HW & 256-NIA5 & 5{,}865 & 9{,}024 & 100{,}309 & 63.1 & 30.4 \\
  & HW & 256-NCA5 & 5{,}871 & 10{,}080 & 130{,}274 & 83.0 & 23.1 \\
 \midrule
-Snow 5G & L1 & 256-NEA4 & 119{,}354 & 141{,}612 & 820{,}665 & 473.8 & 4.1 \\
+SNOW 5G & L1 & 256-NEA4 & 119{,}354 & 141{,}612 & 820{,}665 & 473.8 & 4.1 \\
  & L1 & 256-NIA4 & 156{,}170 & 202{,}322 & 1{,}602{,}278 & 970.7 & 2.0 \\
  & L1 & 256-NCA4 & 156{,}282 & 224{,}698 & 2{,}303{,}707 & 1437.2 & 1.3 \\
  & L2 & 256-NEA4 & 13{,}795 & 16{,}377 & 84{,}530 & 47.8 & 40.1 \\

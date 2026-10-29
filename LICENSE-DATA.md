@@ -1,6 +1,6 @@
 # Licence for data, figures and documentation
 
-Copyright (c) 2026 Sohel Rana and Md. Rubaiyat Hossain Mondal.
+Copyright (c) 2026 Sohel Rana and M. Rubaiyat Hossain Mondal.
 
 The measurement data in `results/`, the figures and tables in `paper/`, and the
 documentation in `docs/` and the README files are licensed under the
